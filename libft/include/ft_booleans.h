@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:01:02 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/02/07 10:42:55 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/03 23:42:21 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		ft_isalpha(int c);
 int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_isprint(int c);
+int		ft_isfloat(char *str);
+int		ft_isint(char *str);
 
 int		ft_ischarset(char c, char *set);
 int		ft_isnotcharset(char c, char *set);

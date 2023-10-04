@@ -6,7 +6,7 @@
 #    By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/07 10:24:39 by ele-sage          #+#    #+#              #
-#    Updated: 2023/07/21 16:45:56 by ele-sage         ###   ########.fr        #
+#    Updated: 2023/10/04 01:27:30 by ele-sage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ LST_BOOLEANS		:=	ft_isalnum.c			ft_isalpha.c		\
 					ft_isdigit.c				ft_islower.c		\
 					ft_isnotcharset.c			ft_isprime.c		\
 					ft_isprint.c				ft_isspace.c		\
-					ft_isupper.c
+					ft_isupper.c				ft_isint.c			\
+					ft_isfloat.c
 
 LST_CONVERSIONS	:=	ft_atoi.c					ft_atol.c			\
 					ft_big_atoi.c				ft_big_atol.c		\
