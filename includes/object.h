@@ -87,6 +87,4 @@ void            add_cylinder(t_objects *object, char **components);
 t_vec3          new_vec3(char **components);
 t_color         new_color(char **components);
 
-void            free_object(t_objects *objects);
-
 #endif

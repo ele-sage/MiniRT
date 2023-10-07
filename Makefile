@@ -6,7 +6,7 @@
 #    By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/12 12:33:49 by ele-sage          #+#    #+#              #
-#    Updated: 2023/10/04 12:36:13 by ele-sage         ###   ########.fr        #
+#    Updated: 2023/10/07 14:24:50 by ele-sage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,14 +27,14 @@ LIBFT = libft/libft.a
 # LIBGLFW = mlx/libglfw3.a
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -Iincludes -g #-fsanitize=address #-Wunreachable-code -MMD -Ofast
+CFLAGS = -Wall -Werror -Wextra -Iincludes -lm #-fsanitize=address #-Wunreachable-code -MMD -Ofast
 LDFLAGS = -Llibft/ #-Lmlx/
 LDLIBS = -lft #-framework OpenGL -framework AppKit -framework IOKit  -lmlx42 -lglfw3
 
 all: lib $(NAME) #libmlx
 
 $(NAME): $(OBJS) $(LIBFT) #$(LIBMLX) $(LIBGLFW)
-	@$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OBJS) -o $@
+	@$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $@
 	@echo "\033[32mminiRT compiled\033[0m"
 
 $(OBJS_DIRS)%.o: $(SRCS_DIR)%.c

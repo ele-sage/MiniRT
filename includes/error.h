@@ -49,6 +49,6 @@ Example :\n\
     cy 50.0,0.0,20.6    0,0,1.0    14.2 21.42    10,0,255\n"
 
 bool    ft_error(char *str);
-void	*ft_error_free(char *str, t_parse *ptr);
+void	*ft_error_free(t_parse *ptr);
 
 #endif

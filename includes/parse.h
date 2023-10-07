@@ -20,7 +20,6 @@ typedef struct	s_parse
 	char		*file;
 	char		*line;
 	char		**lines;
-	char		**type;
 	int			nb_obj[6];
 	int			nb_line;
 	int			fd;

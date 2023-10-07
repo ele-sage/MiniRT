@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:43:46 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/04 12:34:50 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/07 14:23:10 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ bool check_coordinates(char *elem)
 
 	coord = ft_split(elem, ',');
 	if (ft_splitlen(coord) != 3)
+	{
+		ft_free_split(coord);
 		return (false);
+	}
 	i = 0;
 	while (coord[i])
 	{
@@ -78,19 +81,22 @@ bool check_normal(char *elem)
 	lenght = 0;
 	coord = ft_split(elem, ',');
 	if (ft_splitlen(coord) != 3)
+	{
+		ft_free_split(coord);
 		return (false);
+	}
 	i = 0;
 	while (coord[i])
 	{
 		if (!ft_isfloat(coord[i]) && !ft_isint(coord[i]))
 			break;
-		lenght += pow(ft_atof(coord[i]), 2);
+		lenght += ft_atof(coord[i]) * ft_atof(coord[i]);
 		i++;
 	}
 	ft_free_split(coord);
 	if (i != 3)
 		return (false);
-	lenght = sqrt(lenght);
+	lenght = ft_sqrt(lenght);
 	if (lenght < 0.99 || lenght > 1.01)
 		return (false);
 	return (true);

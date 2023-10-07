@@ -20,11 +20,8 @@ bool	ft_error(char *str)
 	return (false);
 }
 
-void	*ft_error_free(char *str, t_parse *ptr)
+void	*ft_error_free(t_parse *ptr)
 {
-	ft_putstr_fd("\033[1;31mError\n\033[0m", 2);
-	ft_putstr_fd(str, 2);
-	ft_putstr_fd("\n", 2);
 	free_parsing(ptr);
 	return (NULL);
 }

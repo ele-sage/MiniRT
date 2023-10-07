@@ -23,7 +23,6 @@ bool    check_ambient(char **elem, t_parse *parse)
     if (!check_color(elem[2]))
         return (ft_error(ERR_COLOR));
     parse->nb_obj[0]++;
-    printf("ambient check\n");
     return (true);
 }
 
@@ -40,7 +39,6 @@ bool    check_camera(char **elem, t_parse *parse)
     if (!check_range(elem[3], 0.0, 180.0))
         return (ft_error("Camera FOV must be between 0 and 180\n"));
     parse->nb_obj[1]++;
-    printf("camera check\n");
     return (true);
 }
 
@@ -57,7 +55,6 @@ bool    check_light(char **elem, t_parse *parse)
     if (!check_color(elem[3]))
         return (ft_error(ERR_COLOR));
     parse->nb_obj[2]++;
-    printf("light check\n");
     return (true);
 }
 

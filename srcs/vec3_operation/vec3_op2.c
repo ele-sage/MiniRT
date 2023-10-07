@@ -1,23 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free.h                                          :+:      :+:    :+:   */
+/*   vec3_op2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/04 01:44:43 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/04 11:43:35 by ele-sage         ###   ########.fr       */
+/*   Created: 2023/10/07 13:58:09 by ele-sage          #+#    #+#             */
+/*   Updated: 2023/10/07 13:58:40 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_FREE_H
-# define FT_FREE_H
+#include "miniRT.h"
 
-# include "miniRT.h"
 
-void	free_parsing(t_parse *parse);
-void	free_objects(t_objects *object);
-void	*free_before_init(t_parse *parse, t_objects *object);
-void    *free_all(t_parse *parse, t_objects *object);
-
-#endif

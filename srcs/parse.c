@@ -49,9 +49,7 @@ static void	check_objs(t_parse *parse, char **elem)
 static bool	check_line(t_parse *parse)
 {
 	char		**elem;
-	int			i;
 
-	i = 0;
 	elem = ft_split(parse->line, ' ');
 	if (!elem)
 		return (false);
@@ -71,6 +69,7 @@ static bool	fill_tab(t_parse *parse)
 
 	i = 0;
 	parse->line = ft_gnl_join(parse->fd);
+	close(parse->fd);
 	if (!parse->line)
 		return (false);
 	parse->lines = ft_split(parse->line, '\n');
@@ -78,17 +77,8 @@ static bool	fill_tab(t_parse *parse)
 	if (!parse->lines)
 		return (false);
 	parse->nb_line = ft_splitlen(parse->lines);
-	parse->type = malloc(sizeof(char *) * parse->nb_line + 1);
-	if (!parse->type)
-		return (false);
-	parse->type[parse->nb_line] = NULL;
 	while (i < parse->nb_line)
 	{
-		parse->type[i] = malloc(sizeof(char) * 2);
-		if (!parse->type[i])
-			return (false);
-		parse->type[i][0] = parse->lines[i][0];
-		parse->type[i][1] = '\0';
 		parse->line = parse->lines[i];
 		if (!check_line(parse))
 			return (false);
@@ -117,11 +107,10 @@ t_parse	*parsing(int argc, char **argv)
 	parse->is_valid = true;
 	parse->fd = open(parse->file, O_RDONLY);
 	if (parse->fd < 0)
-		return (ft_error_free(ERR_OPEN, parse));
+		return (ft_error_free(parse));
 	if (!fill_tab(parse))
-		return (ft_error_free(ERR_READ, parse));
+		return (ft_error_free(parse));
 	if (parse->nb_obj[0] != 1 || parse->nb_obj[1] != 1 || parse->nb_obj[2] != 1)
-		return (ft_error_free(REQUIRED, parse));
-	close(parse->fd);
+		return (ft_error_free(parse));
 	return (parse);
 }
