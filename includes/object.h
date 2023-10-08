@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:30:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 06:14:05 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/08 09:54:55 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ typedef struct	s_sphere
 typedef struct	s_plane
 {
     t_vec3		    pos;
-    t_vec3		    normal;
+    t_vec3		    dir;
     t_color		    color;
 }				t_plane;
 
 typedef struct	s_cylinder
 {
     t_vec3		    pos;
-    t_vec3		    normal;
+    t_vec3		    dir;
     double		    radius;
     double		    height;
     t_color         color;
@@ -54,7 +54,7 @@ typedef struct	s_light
 typedef struct	s_camera
 {
     t_vec3		pos;
-    t_vec3		normal;
+    t_vec3		dir;
     double		fov;
 }				t_camera;
 

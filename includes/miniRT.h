@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:40:54 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 06:19:31 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/08 11:09:27 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,18 @@ typedef struct	s_scene t_scene;
 # include "error.h"
 # include "object.h"
 # include "ft_free.h"
+# include "render.h"
 
-typedef struct	s_scene
+struct	s_scene
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_objects		*objs;
-	uint32_t		width;
-	uint32_t		height;
+	int				width;
+	int				height;
 };
+
+t_scene	*init_scene(int argc, char **argv);
+void	move(mlx_key_data_t key_data, void *param);
 
 # endif

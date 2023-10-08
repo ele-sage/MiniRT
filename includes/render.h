@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 20:40:31 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 11:06:09 by ele-sage         ###   ########.fr       */
+/*   Created: 2023/10/08 07:50:04 by ele-sage          #+#    #+#             */
+/*   Updated: 2023/10/08 07:50:30 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#ifndef RENDER_H
+# define RENDER_H
 
-int	main(int argc, char **argv)
-{
-	t_scene	*scene;
+# include "miniRT.h"
 
-	scene = init_scene(argc, argv);
-	if (!scene)
-		return (1);
-	mlx_image_to_window(scene->mlx, scene->img, 0, 0);
-	render(scene);
-	mlx_key_hook(scene->mlx, move, scene);
-	mlx_loop(scene->mlx);
-	return (0);
-}
+void	render(t_scene *scene);
+
+#endif

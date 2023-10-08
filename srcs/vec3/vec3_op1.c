@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:57:07 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/07 14:02:45 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/08 10:10:54 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,33 @@ t_vec3  vec3_cross(t_vec3 u, t_vec3 v)
     w.y = u.z * v.x - u.x * v.z;
     w.z = u.x * v.y - u.y * v.x;
     return (w);
+}
+
+t_vec3  _vec3(double x, double y, double z)
+{
+	t_vec3 w;
+
+	w.x = x;
+	w.y = y;
+	w.z = z;
+	return (w);
+}
+
+t_color _color(int r, int g, int b)
+{
+	t_color color;
+
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	return (color);
+}
+
+t_ray	_ray(t_vec3 pos, t_vec3 dir)
+{
+	t_ray ray;
+
+	ray.pos = pos;
+	ray.dir = dir;
+	return (ray);
 }

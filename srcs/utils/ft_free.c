@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:46:27 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 06:33:29 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/08 06:45:57 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	*free_all(t_parse *parse, t_objects *object)
 void	free_scene(t_scene *scene)
 {
 	mlx_delete_image(scene->mlx, scene->img);
-	mlx_destroy(scene->mlx);
+	mlx_terminate(scene->mlx);
 	free_objects(scene->objs);
 	free(scene);
 }

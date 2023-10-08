@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 06:16:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 06:34:46 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/08 07:50:50 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool	init_mlx(t_scene *scene)
 	img = mlx_new_image(mlx, scene->width, scene->height);
 	if (!img)
 	{
-		mlx_destroy(mlx);
+		mlx_terminate(mlx);
 		return (false);
 	}
 	scene->mlx = mlx;
@@ -40,6 +40,8 @@ t_scene	*init_scene(int argc, char **argv)
 	t_parse		*parse;
 	t_objects	*object;
 
+	if (argc < 2)
+		return (NULL);
 	parse = parsing(argc, argv);
 	if (!parse)
 		return (NULL);

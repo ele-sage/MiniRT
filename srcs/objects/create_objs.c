@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_objs2.c                                     :+:      :+:    :+:   */
+/*   create_objs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/04 12:26:48 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/08 09:55:46 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_plane *new_plane(char **components)
     split = ft_split(components[2], ',');
     if (!split)
         return (free(plane), NULL);
-    plane->normal = new_vec3(split);
+    plane->dir = new_vec3(split);
     ft_free_split(split);
     split = ft_split(components[3], ',');
     if (!split)
@@ -76,7 +76,7 @@ t_cylinder *new_cylinder(char **components)
     split = ft_split(components[2], ',');
     if (!split)
         return (free(cylinder), NULL);
-    cylinder->normal = new_vec3(split);
+    cylinder->dir = new_vec3(split);
     ft_free_split(split);
     cylinder->radius = ft_atof(components[3])/2;
     cylinder->height = ft_atof(components[4]);
@@ -143,7 +143,7 @@ t_camera *new_camera(char **components)
     split = ft_split(components[2], ',');
     if (!split)
         return (free(camera), NULL);
-    camera->normal = new_vec3(split);
+    camera->dir = new_vec3(split);
     ft_free_split(split);
     camera->fov = ft_atof(components[3]);
     return (camera);

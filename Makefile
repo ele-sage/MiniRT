@@ -6,7 +6,7 @@
 #    By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/12 12:33:49 by ele-sage          #+#    #+#              #
-#    Updated: 2023/10/08 06:43:38 by ele-sage         ###   ########.fr        #
+#    Updated: 2023/10/08 11:07:08 by ele-sage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ CFLAGS = -Wall -Werror -Wextra -Ilibft/ -Iinclude/
 LDFLAGS = -Llibft/ -Lmlx/
 LDLIBS = -framework OpenGL -framework AppKit -framework IOKit -lft -lmlx42 -lglfw3
 
-SRCFILES	= main.c \
+SRCFILES	= main.c init_scene.c render/render.c render/move.c \
 		parsing/parse_file.c parsing/check_objs.c parsing/check_components.c \
 		objects/add_objs.c objects/create_objs.c objects/init_objs.c \
 		utils/error.c utils/ft_free.c \
@@ -35,16 +35,22 @@ SRCFILES 	:= $(addprefix $(SRCDIR)/,$(SRCFILES))
 OBJFILES 	:= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCFILES))
 INCS    	:= -Ilibft/include -I$(INCDIR) -Imlx/include/MLX42
 
+GREEN=\033[32m
+ERASE=\033[2K\r
+RESET=\033[0m
+BOLD=\033[1m
+
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(LIBMLX) $(OBJFILES)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OBJFILES) -o $(NAME)
-	@echo "\033[32m[OK] \033[0m\033[1mCompilation of miniRT\033[0m"
+	@echo "$(ERASE)$(GREEN)$(BOLD)$(NAME) created$(RESET)	✅"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
-
+	@mkdir -p $(dir $(OBJFILES))
+	@$(CC) $(CFLAGS) $(INCS) -c $< -o $@
+	
 $(LIBFT):
 	@make -C libft
 
