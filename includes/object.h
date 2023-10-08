@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:30:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/04 12:31:17 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/08 06:14:05 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ typedef struct	s_plane
 
 typedef struct	s_cylinder
 {
-    t_vec3		        pos;
-    t_vec3		        normal;
-    double		        radius;
-    double		        height;
-    t_color		        color;
+    t_vec3		    pos;
+    t_vec3		    normal;
+    double		    radius;
+    double		    height;
+    t_color         color;
 }				t_cylinder;
 
 typedef struct	s_amblight

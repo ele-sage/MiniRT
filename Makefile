@@ -6,60 +6,60 @@
 #    By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/12 12:33:49 by ele-sage          #+#    #+#              #
-#    Updated: 2023/10/07 14:24:50 by ele-sage         ###   ########.fr        #
+#    Updated: 2023/10/08 05:59:15 by ele-sage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 	miniRT
-SRCS = 	main.c check_elements.c check_utils.c error.c parse.c ft_free.c add_objs.c \
-		create_objs1.c create_objs2.c \
+SRCS = 	main.c \
+		parsing/parse_file.c parsing/check_objs.c parsing/check_components.c \
+		objects/add_objs.c objects/create_objs.c objects/init_objs.c \
+		utils/error.c utils/ft_free.c \
+		vec3/vec3_op1.c vec3/vec3_op2.c \
 
 SRCS_DIR = srcs/
 SRCS := $(addprefix $(SRCS_DIR), $(SRCS))
-OBJS_DIRS = objs/
-OBJS = $(SRCS:$(SRCS_DIR)%.c=$(OBJS_DIRS)%.o)
-DEPS = $(SRCS:%.c=%.d)
-
-INCS = includes/
+OBJS = $(SRCS:.c=.o)
+OBJS_DIRS = $(dir $(OBJS))
 
 LIBFT = libft/libft.a
-# LIBMLX = mlx/libmlx42.a
-# LIBGLFW = mlx/libglfw3.a
+LIBMLX = mlx/libmlx42.a
+LIBGLFW = mlx/libglfw3.a
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -Iincludes -lm #-fsanitize=address #-Wunreachable-code -MMD -Ofast
-LDFLAGS = -Llibft/ #-Lmlx/
-LDLIBS = -lft #-framework OpenGL -framework AppKit -framework IOKit  -lmlx42 -lglfw3
+CFLAGS = -Wall -Werror -Wextra -g
 
-all: lib $(NAME) #libmlx
+LDFLAGS = -Llibft/ -Lmlx/
+LDLIBS = -framework OpenGL -framework AppKit -framework IOKit -lft -lmlx42 -lglfw3
 
-$(NAME): $(OBJS) $(LIBFT) #$(LIBMLX) $(LIBGLFW)
-	@$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $@
+all: lib libmlx $(NAME)
+
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(OBJS) -o $(NAME)
 	@echo "\033[32mminiRT compiled\033[0m"
 
-$(OBJS_DIRS)%.o: $(SRCS_DIR)%.c
-	@mkdir -p $(OBJS_DIRS)
+%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "\033[32m$@\033[0m"
 
 lib:
 	@$(MAKE) -s -C libft/
 
-# libmlx:
-# 	@$(MAKE) -s -C mlx/
+libmlx:
+	@$(MAKE) -s -C mlx/
 	
 clean:
-#@$(MAKE) -s -C mlx/ clean
+	@$(MAKE) -s -C mlx/ clean
 	@$(MAKE) -s -C libft/ clean
-	@rm -f $(OBJS) $(DEPS)
+	@rm -f $(OBJS)
 	@rm -rf $(OBJS_DIRS)
 	@echo "\033[31mminiRT objects removed\033[0m"
 
 fclean: clean
 	@$(MAKE) -C libft/ $@
-#@$(MAKE) -C mlx/ $@
+	@$(MAKE) -C mlx/ $@
 	@rm -f $(NAME)
 	@echo "\033[31mminiRT removed\033[0m"
 
 re: fclean all
 .PHONY: all clean fclean re
--include $(DEPS)

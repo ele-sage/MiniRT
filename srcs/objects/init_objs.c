@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_objs1.c                                     :+:      :+:    :+:   */
+/*   init_objs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/04 12:37:27 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/08 06:24:03 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,6 @@ t_objects    *new_objects(t_parse *parse)
     fill_null(object);
     if (!fill_objects(parse, object) || !check_objects(object))
         return (free_all(parse, object));
+    free_parsing(parse);
     return (object);
 }
