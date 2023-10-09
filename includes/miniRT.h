@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:40:54 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 11:09:27 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:19:08 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdbool.h>
+# include <pthread.h>
 # include "../libft/include/libft.h"
 # include "../mlx/include/MLX42/MLX42.h"
 
@@ -31,6 +32,10 @@ typedef struct	s_scene t_scene;
 # include "ft_free.h"
 # include "render.h"
 
+# define WIDTH 1920
+# define HEIGHT 1080
+# define THREADS 16
+
 struct	s_scene
 {
 	mlx_t			*mlx;
@@ -40,7 +45,14 @@ struct	s_scene
 	int				height;
 };
 
+typedef struct	s_thread
+{
+	t_scene		*scene;
+	int			thread_id;
+}				t_thread;
+
 t_scene	*init_scene(int argc, char **argv);
 void	move(mlx_key_data_t key_data, void *param);
+void	create_thread(t_scene *scene);
 
 # endif

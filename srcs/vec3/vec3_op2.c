@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:58:09 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 09:53:32 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 07:55:55 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,12 @@ t_vec3	vec3_div(t_vec3 u, double t)
 	return (w);
 }
 
-t_vec3	vec3_unit(t_vec3 u)
+t_vec3	vec3_norm(t_vec3 u)
 {
 	return (vec3_div(u, vec3_length(u)));
 }
 
 int32_t	rgba_to_int(t_color color)
 {
-	int32_t	rgb;
-
-	rgb = 255;
-	return (rgb | (color.r << 24) | (color.g << 16) | color.b << 8);
+	return ((color.r << 24) | (color.g << 16) | (color.b << 8) | color.a);
 }

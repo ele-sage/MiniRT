@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:30:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 09:54:55 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:29:02 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ typedef struct	s_light
 
 typedef struct	s_camera
 {
-    t_vec3		pos;
+	t_vec3		pos;
     t_vec3		dir;
+	t_vec3		up;
+	t_vec3		right;
     double		fov;
 }				t_camera;
 
@@ -88,3 +90,4 @@ t_vec3          new_vec3(char **components);
 t_color         new_color(char **components);
 
 #endif
+

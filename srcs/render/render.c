@@ -6,150 +6,57 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 07:21:13 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 11:02:08 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:32:40 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-bool	hit_sphere(t_sphere *sphere, t_ray ray, double t_min, double t_max)
+// Apply ambient light to the color
+t_color	apply_ambient(t_color color, t_amblight ambient)
 {
-	t_vec3	oc;
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-	double	root;
+	t_color	ambient_color;
 
-	oc = vec3_sub(ray.pos, sphere->pos);
-	a = vec3_dot(ray.dir, ray.dir);
-	b = 2.0 * vec3_dot(oc, ray.dir);
-	c = vec3_dot(oc, oc) - sphere->radius * sphere->radius;
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return (false);
-	root = (-b - sqrt(discriminant)) / (2.0 * a);
-	if (root < t_min || t_max < root)
-	{
-		root = (-b + sqrt(discriminant)) / (2.0 * a);
-		if (root < t_min || t_max < root)
-			return (false);
-	}
-	return (true);
+	ambient_color.r = color.r * ambient.ratio * ambient.color.r / 255;
+	ambient_color.g = color.g * ambient.ratio * ambient.color.g / 255;
+	ambient_color.b = color.b * ambient.ratio * ambient.color.b / 255;
+	ambient_color.a = color.a;
+	return (ambient_color);
 }
 
-bool	hit_plane(t_plane *plane, t_ray ray, double t_min, double t_max)
+// Calculate the ray for a single pixel
+t_ray	get_ray(t_camera *camera, int u, int v, mlx_t *mlx)
 {
-	double	denom;
-	double	t;
-	t_vec3	oc;
-
-	denom = vec3_dot(plane->dir, ray.dir);
-	if (fabs(denom) > 0.0001)
-	{
-		oc = vec3_sub(plane->pos, ray.pos);
-		t = vec3_dot(oc, plane->dir) / denom;
-		if (t > t_min && t < t_max)
-			return (true);
-	}
-	return (false);
-}
-
-bool	hit_cylinder(t_cylinder *cylinder, t_ray ray, double t_min, double t_max)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-	double	root;
-	t_vec3	oc;
-	t_vec3	oc2;
-
-	oc = vec3_sub(ray.pos, cylinder->pos);
-	oc2 = vec3_sub(ray.dir, vec3_mul(cylinder->dir, vec3_dot(ray.dir, cylinder->dir)));
-	a = vec3_dot(oc2, oc2);
-	b = 2.0 * vec3_dot(oc2, oc);
-	c = vec3_dot(oc, oc) - cylinder->radius * cylinder->radius;
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return (false);
-	root = (-b - sqrt(discriminant)) / (2.0 * a);
-	if (root < t_min || t_max < root)
-	{
-		root = (-b + sqrt(discriminant)) / (2.0 * a);
-		if (root < t_min || t_max < root)
-			return (false);
-	}
-	return (true);
-}
-
-t_color	hit(t_objects *objs, t_ray ray, double t_min, double t_max)
-{
-	int		i;
-
-	i = 0;
-	while (i < objs->nb_sphere)
-	{
-		if (hit_sphere(objs->sphere[i], ray, t_min, t_max))
-			return (objs->sphere[i]->color);
-		i++;
-	}
-	i = 0;
-	while (i < objs->nb_plane)
-	{
-		if (hit_plane(objs->plane[i], ray, t_min, t_max))
-			return (objs->plane[i]->color);
-		i++;
-	}
-	i = 0;
-	while (i < objs->nb_cylinder)
-	{
-		if (hit_cylinder(objs->cylinder[i], ray, t_min, t_max))
-			return (objs->cylinder[i]->color);
-		i++;
-	}
-	return (_color(0, 0, 0));
-}
-
-t_color	ray_color(t_ray ray, t_scene *scene)
-{
-	t_color	hit_color;
-
-	hit_color = hit(scene->objs, ray, 0.0, INFINITY);
-	if (hit_color.r != 0 || hit_color.g != 0 || hit_color.b != 0)
-		return (hit_color);
-	return (_color(0, 0, 0));
-}
-
-void	render(t_scene *scene)
-{
-	int		i;
-	int		j;
-	double	viewport_height;
-	double	viewport_width;
-	double	focal_length;
-	t_camera	*camera;
 	t_ray	ray;
-	t_color	pixel_color;
+	double	aspect_ratio;
+	double	theta;
+	double	half_height;
+	double	half_width;
 
-	i = 0;
-	j = 0;
-	viewport_height = 2.0;
-	viewport_width = scene->width / scene->height * viewport_height;
-	focal_length = 1.0;
-	camera = scene->objs->camera;
-	while (i < scene->height)
-	{
-		j = 0;
-		while (j < scene->width)
-		{
-			ray.pos = camera->pos;
-			ray.dir = vec3_add(camera->dir, vec3_mul(_vec3((j + 0.5) / scene->width - 0.5, (i + 0.5) / scene->height - 0.5, focal_length), camera->fov));
-			pixel_color = ray_color(ray, scene);
-			mlx_put_pixel(scene->img, j, i, rgba_to_int(pixel_color));
-			j++;
-		}
-		i++;
-	}
+	aspect_ratio = (double)mlx->width / (double)mlx->height;
+	theta = camera->fov * M_PI / 180;
+	half_height = tan(theta / 2);
+	half_width = aspect_ratio * half_height;
+	ray.pos = camera->pos;
+	ray.dir = vec3_norm(vec3_add(vec3_add(vec3_mul(camera->dir, -1),
+		vec3_mul(camera->up, half_height * (1 - 2 * (double)v / mlx->height))),
+		vec3_mul(camera->right, half_width * (2 * (double)u / mlx->width - 1))));
+	return (ray);
 }
 
+// Calculate the color of a single pixel
+t_color	frag(t_scene *scene, int u, int v)
+{
+	t_ray		ray;
+	t_hit_info	hit_info;
+
+	hit_info.collided = false;
+	hit_info.dist = INFINITY;
+	ray = get_ray(scene->objs->camera, u, v, scene->mlx);
+	hit(scene->objs, ray, &hit_info);
+	if (hit_info.collided)
+	{
+		return (apply_ambient(hit_info.color, *scene->objs->amblight));
+	}
+	return ((t_color){0, 0, 0, 255});
+}

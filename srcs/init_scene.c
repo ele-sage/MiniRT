@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 06:16:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 07:50:50 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 13:34:10 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static bool	init_mlx(t_scene *scene)
 
 	scene->width = 1920;
 	scene->height = 1080;
-	//mlx_get_monitor_size(mlx, &scene->width, &scene->height);
 	mlx = mlx_init(scene->width, scene->height, "miniRT", true);
 	if (!mlx)
 		return (false);

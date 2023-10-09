@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:13:04 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/04 13:09:02 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 09:25:26 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	check_objs(t_parse *parse, char **elem)
 		parse->is_valid = false;
 }
 
+// Should also check for /t
 static bool	check_line(t_parse *parse)
 {
 	char		**elem;

@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 09:55:46 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 15:29:19 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,5 +146,7 @@ t_camera *new_camera(char **components)
     camera->dir = new_vec3(split);
     ft_free_split(split);
     camera->fov = ft_atof(components[3]);
+	camera->up = (t_vec3){0, 1, 0};
+	camera->right = vec3_norm(vec3_cross(camera->dir, camera->up));
     return (camera);
 }

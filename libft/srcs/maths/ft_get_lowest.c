@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:08:08 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/03/06 10:15:29 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 08:25:33 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,11 @@ int	ft_get_lowest(int nb1, int nb2)
 	if (nb1 < nb2)
 		return (nb1);
 	return (nb2);
+}
+
+double	get_min(double a, double b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }

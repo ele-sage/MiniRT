@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:13:42 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/04 12:30:02 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 07:54:52 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_color new_color(char **components)
     color.r = ft_atoi(components[0]);
     color.g = ft_atoi(components[1]);
     color.b = ft_atoi(components[2]);
+	color.a = 255;
     return (color);
 }
 

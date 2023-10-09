@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:57:07 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 10:10:54 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/09 08:27:22 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,14 @@ t_vec3  _vec3(double x, double y, double z)
 	return (w);
 }
 
-t_color _color(int r, int g, int b)
+t_color _color(int r, int g, int b, int a)
 {
 	t_color color;
 
 	color.r = r;
 	color.g = g;
 	color.b = b;
+	color.a = a;
 	return (color);
 }
 
@@ -79,4 +80,26 @@ t_ray	_ray(t_vec3 pos, t_vec3 dir)
 	ray.pos = pos;
 	ray.dir = dir;
 	return (ray);
+}
+
+t_hit_info	_hit_info(t_ray ray, t_color color, double dist, bool hit)
+{
+	t_hit_info hit_info;
+
+	hit_info.hit = ray;
+	hit_info.color = color;
+	hit_info.dist = dist;
+	hit_info.collided = hit;
+	return (hit_info);
+}
+
+t_hit_info	_hit_info_null(void)
+{
+	t_hit_info hit_info;
+
+	hit_info.hit = _ray(_vec3(0, 0, 0), _vec3(0, 0, 0));
+	hit_info.color = _color(0, 0, 0, 0);
+	hit_info.dist = 0;
+	hit_info.collided = false;
+	return (hit_info);
 }
