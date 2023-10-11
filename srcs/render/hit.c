@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 16:17:13 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:50:36 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,14 @@ void	hit_cylinder(t_cylinder *cylinder, t_ray ray, t_hit_info *hit_info)
 	hit_info->hit.pos = vec3_add(ray.pos, vec3_mul(ray.dir, hit_info->dist));
 	hit_info->hit.dir = vec3_norm(vec3_sub(hit_info->hit.pos, cylinder->pos));
 	hit_info->color = cylinder->color;
+	t_vec3 cy_inv_max_len = vec3_mul(vec3_mul(cylinder->dir, -1), cylinder->height / 2);
+	cy_inv_max_len = vec3_add(cy_inv_max_len, cylinder->pos);
+	t_vec3 cy_max_len = vec3_mul(cylinder->dir, cylinder->height / 2);
+	cy_max_len = vec3_add(cy_max_len, cylinder->pos);
+	t_vec3 cy_inv_max_len_hit = vec3_sub(hit_info->hit.pos, cy_inv_max_len);
+	t_vec3 cy_max_len_hit = vec3_sub(hit_info->hit.pos, cy_max_len);
+	if (vec3_dot(cy_inv_max_len_hit, cylinder->dir) < 0 || vec3_dot(cy_max_len_hit, cylinder->dir) > 0)
+		hit_info->collided = false;
 }
 
 void	hit(t_objects *objects, t_ray ray, t_hit_info *hit_info)

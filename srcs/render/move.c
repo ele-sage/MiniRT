@@ -6,17 +6,39 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:54:32 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 16:03:37 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:57:49 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
+// Define a function to rotate a vector around the Y-axis
+t_vec3 rotate_y(t_vec3 vec, double angle) {
+    double cos_a = cos(angle);
+    double sin_a = sin(angle);
+    t_vec3 result;
+    result.x = cos_a * vec.x - sin_a * vec.z;
+    result.y = vec.y;
+    result.z = sin_a * vec.x + cos_a * vec.z;
+    return result;
+}
+
+// Define a function to rotate the camera
+void rotate_camera(t_camera *camera, double angle) {
+    // Rotate the camera's direction vector around the Y-axis
+    camera->dir = rotate_y(camera->dir, angle);
+    // Update the right and up vectors accordingly
+    camera->right = vec3_cross(camera->dir, (t_vec3){0, 1, 0});
+    camera->up = vec3_cross(camera->right, camera->dir);
+}
+
 void	move(mlx_key_data_t key_data, void *param)
 {
 	t_scene		*scene;
 	t_camera	*camera;
+	bool 		changed;
 
+	changed = true;
 	scene = (t_scene*)param;
 	camera = scene->objs->camera;
 	if (key_data.key == MLX_KEY_ESCAPE)
@@ -26,21 +48,21 @@ void	move(mlx_key_data_t key_data, void *param)
 	}
 	if (key_data.key == MLX_KEY_W)
 		camera->pos = vec3_add(camera->pos, vec3_mul(camera->dir, 0.1));
-	if (key_data.key == MLX_KEY_S)
+	else if (key_data.key == MLX_KEY_S)
 		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->dir, 0.1));
-	if (key_data.key == MLX_KEY_A)
-		camera->pos = vec3_add(camera->pos, vec3_mul(camera->right, 0.1));
-	if (key_data.key == MLX_KEY_D)
+	else if  (key_data.key == MLX_KEY_A)
 		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->right, 0.1));
-	if (key_data.key == MLX_KEY_UP)
-		camera->dir = vec3_norm(vec3_add(camera->dir, _vec3(0, 0.1, 0)));
-	if (key_data.key == MLX_KEY_DOWN)
-		camera->dir = vec3_norm(vec3_sub(camera->dir, _vec3(0, 0.1, 0)));
-	if (key_data.key == MLX_KEY_LEFT)
-		camera->dir = vec3_norm(vec3_add(camera->dir, _vec3(0.1, 0, 0)));
-	if (key_data.key == MLX_KEY_RIGHT)
-		camera->dir = vec3_norm(vec3_sub(camera->dir, _vec3(0.1, 0, 0)));
-	if (key_data.key == MLX_KEY_W || key_data.key == MLX_KEY_S || key_data.key == MLX_KEY_A || key_data.key == MLX_KEY_D
-		|| key_data.key == MLX_KEY_UP || key_data.key == MLX_KEY_DOWN || key_data.key == MLX_KEY_LEFT || key_data.key == MLX_KEY_RIGHT)
+	else if  (key_data.key == MLX_KEY_D)
+		camera->pos = vec3_add(camera->pos, vec3_mul(camera->right, 0.1));
+	else if  (key_data.key == MLX_KEY_LEFT)
+		rotate_camera(camera, 0.1);
+	else if  (key_data.key == MLX_KEY_RIGHT)
+		rotate_camera(camera, -0.1);
+	else
+		changed = false;
+	if (changed)
+	{
+		printf("Camera direction: %f %f %f\n", camera->dir.x, camera->dir.y, camera->dir.z);
 		create_thread(scene);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:27:35 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 16:18:03 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/10 18:58:22 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,17 @@ typedef struct	s_vec3
 	double		z;
 }				t_vec3;
 
+typedef struct	s_mat3
+{
+	union
+	{
+		double 		m[9];
+		t_vec3 		rows[3];
+	};
+	
+}				t_mat3;
+
+
 typedef struct	s_ray
 {
 	t_vec3		pos;
@@ -52,6 +63,7 @@ t_vec3		vec3_cross(t_vec3 u, t_vec3 v);
 t_vec3		vec3_mul(t_vec3 u, double t);
 t_vec3		vec3_div(t_vec3 u, double t);
 t_vec3		vec3_norm(t_vec3 u);
+t_vec3		vec3_rotate(t_vec3 dir, double angle);
 int32_t		rgba_to_int(t_color color);
 
 t_vec3		_vec3(double x, double y, double z);

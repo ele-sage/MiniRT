@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:40:54 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 16:19:08 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:13:18 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_scene t_scene;
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define THREADS 16
+# define THREADS 10
 
 struct	s_scene
 {
