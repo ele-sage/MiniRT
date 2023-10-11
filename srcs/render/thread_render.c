@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:52:46 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 13:55:28 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/10 22:15:37 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	*render_thread(void *arg)
 		while (u < data->scene->mlx->width)
 		{
 			color = (t_color){0, 0, 0, 255};
-			color = frag(data->scene, u, v);
+			color = draw_pixel(data->scene, u, v);
 			mlx_put_pixel(data->scene->img, u, v, rgba_to_int(color));
 			u++;
 		}

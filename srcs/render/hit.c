@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/10 17:50:36 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:13:11 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ typedef struct	s_equation
 	double	t1;
 	double	t2;
 }				t_equation;
+
+void	randomize_hit_dir(t_hit_info *hit_info)
+{
+	t_vec3	random;
+	t_vec3	normal;
+
+	random = _vec3(rand() % 100, rand() % 100, rand() % 100);
+	normal = vec3_norm(vec3_cross(random, hit_info->hit.dir));
+	hit_info->hit.dir = vec3_norm(vec3_cross(normal, hit_info->hit.dir));
+}
+
 
 void	hit_sphere(t_sphere *sphere, t_ray ray, t_hit_info *hit_info)
 {
@@ -49,24 +60,24 @@ void	hit_sphere(t_sphere *sphere, t_ray ray, t_hit_info *hit_info)
 
 void	hit_plane(t_plane *plane, t_ray ray, t_hit_info *hit_info)
 {
-	double		denom;
-	t_vec3		p0l0;
-	double		t;
+	t_equation	equation;
+	t_vec3		oc;
 
-	denom = vec3_dot(plane->dir, ray.dir);
-	if (fabs(denom) > 0.0001)
-	{
-		p0l0 = vec3_sub(plane->pos, ray.pos);
-		t = vec3_dot(p0l0, plane->dir) / denom;
-		if (t > 0 && t < hit_info->dist)
-		{
-			hit_info->dist = t;
-			hit_info->collided = true;
-			hit_info->hit.pos = vec3_add(ray.pos, vec3_mul(ray.dir, t));
-			hit_info->hit.dir = plane->dir;
-			hit_info->color = plane->color;
-		}
-	}
+	oc = vec3_sub(ray.pos, plane->pos);
+	equation.a = vec3_dot(ray.dir, plane->dir);
+	equation.b = vec3_dot(oc, plane->dir);
+	if (equation.a == 0)
+		return ;
+	equation.t1 = -equation.b / equation.a;
+	if (equation.t1 < 0)
+		return ;
+	if (hit_info->dist < equation.t1)
+		return ;
+	hit_info->dist = equation.t1;
+	hit_info->collided = true;
+	hit_info->hit.pos = vec3_add(ray.pos, vec3_mul(ray.dir, hit_info->dist));
+	hit_info->hit.dir = plane->dir;
+	hit_info->color = plane->color;
 }
 
 void	hit_cylinder(t_cylinder *cylinder, t_ray ray, t_hit_info *hit_info)
@@ -89,10 +100,7 @@ void	hit_cylinder(t_cylinder *cylinder, t_ray ray, t_hit_info *hit_info)
 	if (hit_info->dist < equation.t1 && hit_info->dist < equation.t2)
 		return ;
 	hit_info->dist = get_min(equation.t1, equation.t2);
-	hit_info->collided = true;
 	hit_info->hit.pos = vec3_add(ray.pos, vec3_mul(ray.dir, hit_info->dist));
-	hit_info->hit.dir = vec3_norm(vec3_sub(hit_info->hit.pos, cylinder->pos));
-	hit_info->color = cylinder->color;
 	t_vec3 cy_inv_max_len = vec3_mul(vec3_mul(cylinder->dir, -1), cylinder->height / 2);
 	cy_inv_max_len = vec3_add(cy_inv_max_len, cylinder->pos);
 	t_vec3 cy_max_len = vec3_mul(cylinder->dir, cylinder->height / 2);
@@ -100,7 +108,14 @@ void	hit_cylinder(t_cylinder *cylinder, t_ray ray, t_hit_info *hit_info)
 	t_vec3 cy_inv_max_len_hit = vec3_sub(hit_info->hit.pos, cy_inv_max_len);
 	t_vec3 cy_max_len_hit = vec3_sub(hit_info->hit.pos, cy_max_len);
 	if (vec3_dot(cy_inv_max_len_hit, cylinder->dir) < 0 || vec3_dot(cy_max_len_hit, cylinder->dir) > 0)
+	{
 		hit_info->collided = false;
+		return ;
+	}
+	else
+		hit_info->collided = true;
+	hit_info->hit.dir = vec3_norm(vec3_sub(hit_info->hit.pos, cylinder->pos));
+	hit_info->color = cylinder->color;
 }
 
 void	hit(t_objects *objects, t_ray ray, t_hit_info *hit_info)

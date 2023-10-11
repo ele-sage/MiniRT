@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 15:29:19 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:34:56 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,10 @@ t_amblight *new_amblight(char **components)
         return (free(amblight), NULL);
     amblight->color = new_color(split);
     ft_free_split(split);
+	amblight->color.r *= amblight->ratio / 255;
+	amblight->color.g *= amblight->ratio / 255;
+	amblight->color.b *= amblight->ratio / 255;
+	amblight->color.a = 127;
     return (amblight);
 }
 
@@ -124,6 +128,9 @@ t_light *new_light(char **components)
         return (free(light), NULL);
     light->color = new_color(split);
     ft_free_split(split);
+	light->color_calculated.x = light->color.r * light->ratio / 255;
+	light->color_calculated.y = light->color.g * light->ratio / 255;
+	light->color_calculated.z = light->color.b * light->ratio / 255;
     return (light);
 }
 
@@ -148,5 +155,9 @@ t_camera *new_camera(char **components)
     camera->fov = ft_atof(components[3]);
 	camera->up = (t_vec3){0, 1, 0};
 	camera->right = vec3_norm(vec3_cross(camera->dir, camera->up));
+	camera->aspect_ratio = (double)WIDTH / (double)HEIGHT;
+	camera->theta = camera->fov * M_PI / 180;
+	camera->half_h = tan(camera->theta / 2);
+	camera->half_w = camera->aspect_ratio * camera->half_h;
     return (camera);
 }

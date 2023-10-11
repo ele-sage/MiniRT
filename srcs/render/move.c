@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:54:32 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/10 19:57:49 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/11 12:36:43 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ t_vec3 rotate_y(t_vec3 vec, double angle) {
 
 // Define a function to rotate the camera
 void rotate_camera(t_camera *camera, double angle) {
-    // Rotate the camera's direction vector around the Y-axis
     camera->dir = rotate_y(camera->dir, angle);
-    // Update the right and up vectors accordingly
     camera->right = vec3_cross(camera->dir, (t_vec3){0, 1, 0});
     camera->up = vec3_cross(camera->right, camera->dir);
+	camera->dir = vec3_norm(camera->dir);
+	camera->right = vec3_norm(camera->right);
+	camera->up = vec3_norm(camera->up);
 }
 
 void	move(mlx_key_data_t key_data, void *param)
@@ -61,8 +62,5 @@ void	move(mlx_key_data_t key_data, void *param)
 	else
 		changed = false;
 	if (changed)
-	{
-		printf("Camera direction: %f %f %f\n", camera->dir.x, camera->dir.y, camera->dir.z);
 		create_thread(scene);
-	}
 }

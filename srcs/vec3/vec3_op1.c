@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:57:07 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 08:27:22 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:14:02 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,24 +82,37 @@ t_ray	_ray(t_vec3 pos, t_vec3 dir)
 	return (ray);
 }
 
-t_hit_info	_hit_info(t_ray ray, t_color color, double dist, bool hit)
+t_vec3	vec3_reflect(t_vec3 v, t_vec3 n)
 {
-	t_hit_info hit_info;
-
-	hit_info.hit = ray;
-	hit_info.color = color;
-	hit_info.dist = dist;
-	hit_info.collided = hit;
-	return (hit_info);
+	return (vec3_sub(v, vec3_mul(n, 2 * vec3_dot(v, n))));
 }
 
-t_hit_info	_hit_info_null(void)
+t_color	mix_color(t_color color1, t_color color2)
 {
-	t_hit_info hit_info;
+	t_color color;
+	double diviser;
 
-	hit_info.hit = _ray(_vec3(0, 0, 0), _vec3(0, 0, 0));
-	hit_info.color = _color(0, 0, 0, 0);
-	hit_info.dist = 0;
-	hit_info.collided = false;
-	return (hit_info);
+	color.r = color1.r + color2.r;
+	color.g = color1.g + color2.g;
+	color.b = color1.b + color2.b;
+	diviser = color.r + color.g + color.b;
+	if (color.r > color.g && color.r > color.b)
+	{
+		color.g *= 1 - (color.r - 255) / diviser;
+		color.b *= 1 - (color.r - 255) / diviser;
+		color.r = 255;
+	}
+	else if (color.g > color.r && color.g > color.b)
+	{
+		color.r *= 1 - (color.g - 255) / diviser;
+		color.b *= 1 - (color.g - 255) / diviser;
+		color.g = 255;
+	}
+	else if (color.b > color.r && color.b > color.g)
+	{
+		color.r *= 1 - (color.b - 255) / diviser;
+		color.g *= 1 - (color.b - 255) / diviser;
+		color.b = 255;
+	}
+	return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:30:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/10 16:13:26 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/11 13:34:05 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_light
     t_vec3		pos;
     double		ratio;
     t_color		color;
+	t_vec3		color_calculated;
 }				t_light;
 
 typedef struct	s_camera
@@ -58,6 +59,10 @@ typedef struct	s_camera
 	t_vec3		up;
 	t_vec3		right;
     double		fov;
+	double		aspect_ratio;
+	double		theta;
+	double		half_h;
+	double		half_w;
 }				t_camera;
 
 typedef struct	s_objects
@@ -72,6 +77,14 @@ typedef struct	s_objects
     int         nb_plane;
     int         nb_cylinder;
 }				t_objects;
+
+typedef struct	s_hit_info
+{
+	t_ray		hit;
+	t_color		color;
+	double		dist;
+	int			collided;
+}				t_hit_info;
 
 t_objects       *new_objects(t_parse *parse);
 
