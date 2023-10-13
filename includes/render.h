@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 07:50:04 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/11 14:11:01 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:11:01 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "miniRT.h"
 
-t_color		draw_pixel(t_scene *scene, int x, int y);
+void		draw_pixel(t_scene *scene, int x, int y, t_color *color);
 t_ray		get_ray(t_camera *camera, int u, int v, mlx_t *mlx);
 
 void		randomize_hit_dir(t_hit_info *hit_info);

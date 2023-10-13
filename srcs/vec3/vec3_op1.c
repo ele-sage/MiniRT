@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:57:07 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/11 16:14:02 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:33:50 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_vec3  _vec3(double x, double y, double z)
 	return (w);
 }
 
-t_color _color(int r, int g, int b, int a)
+t_color _color(float r, float g, float b, float a)
 {
 	t_color color;
 
@@ -87,32 +87,3 @@ t_vec3	vec3_reflect(t_vec3 v, t_vec3 n)
 	return (vec3_sub(v, vec3_mul(n, 2 * vec3_dot(v, n))));
 }
 
-t_color	mix_color(t_color color1, t_color color2)
-{
-	t_color color;
-	double diviser;
-
-	color.r = color1.r + color2.r;
-	color.g = color1.g + color2.g;
-	color.b = color1.b + color2.b;
-	diviser = color.r + color.g + color.b;
-	if (color.r > color.g && color.r > color.b)
-	{
-		color.g *= 1 - (color.r - 255) / diviser;
-		color.b *= 1 - (color.r - 255) / diviser;
-		color.r = 255;
-	}
-	else if (color.g > color.r && color.g > color.b)
-	{
-		color.r *= 1 - (color.g - 255) / diviser;
-		color.b *= 1 - (color.g - 255) / diviser;
-		color.g = 255;
-	}
-	else if (color.b > color.r && color.b > color.g)
-	{
-		color.r *= 1 - (color.b - 255) / diviser;
-		color.g *= 1 - (color.b - 255) / diviser;
-		color.b = 255;
-	}
-	return (color);
-}

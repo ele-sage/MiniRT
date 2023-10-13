@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:13:42 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 07:54:52 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:43:17 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ t_color new_color(char **components)
 {
     t_color	color;
 
-    color.r = ft_atoi(components[0]);
-    color.g = ft_atoi(components[1]);
-    color.b = ft_atoi(components[2]);
-	color.a = 255;
-    return (color);
+	color.r = ft_atof(components[0]) / 255;
+	color.g = ft_atof(components[1]) / 255;
+	color.b = ft_atof(components[2]) / 255;
+	color.a = 0;
+	return (color);
 }
 
 void add_sphere(t_objects *object, char **components)

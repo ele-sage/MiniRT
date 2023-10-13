@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/11 13:34:56 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:43:35 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,6 @@ t_amblight *new_amblight(char **components)
         return (free(amblight), NULL);
     amblight->color = new_color(split);
     ft_free_split(split);
-	amblight->color.r *= amblight->ratio / 255;
-	amblight->color.g *= amblight->ratio / 255;
-	amblight->color.b *= amblight->ratio / 255;
-	amblight->color.a = 127;
     return (amblight);
 }
 
@@ -128,9 +124,9 @@ t_light *new_light(char **components)
         return (free(light), NULL);
     light->color = new_color(split);
     ft_free_split(split);
-	light->color_calculated.x = light->color.r * light->ratio / 255;
-	light->color_calculated.y = light->color.g * light->ratio / 255;
-	light->color_calculated.z = light->color.b * light->ratio / 255;
+	light->color.r *= light->ratio;
+	light->color.g *= light->ratio;
+	light->color.b *= light->ratio;
     return (light);
 }
 

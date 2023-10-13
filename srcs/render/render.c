@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 07:21:13 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/11 16:14:48 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 20:23:53 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void	add_light(t_objects *objs, t_hit_info *hit_info)
 	dot = vec3_dot(hit_info->hit.dir, light_ray.dir);
 	if (dot < 0)
 		dot = 0;
-	hit_info->color.r *= objs->light->color_calculated.x * dot;
-	hit_info->color.g *= objs->light->color_calculated.y * dot;
-	hit_info->color.b *= objs->light->color_calculated.z * dot;
+	hit_info->color.r = hit_info->color.r * objs->light->color.r * dot;
+	hit_info->color.g = hit_info->color.g * objs->light->color.g * dot;
+	hit_info->color.b = hit_info->color.b * objs->light->color.b * dot;
 }
 
 void	trace_ray(t_objects *objs, t_ray *ray, t_hit_info *hit_info)
 {
-	int	bounces = 2;
+	int	bounces = 1;
 	int	i;
 
 	i = 0;
@@ -66,14 +66,22 @@ void	trace_ray(t_objects *objs, t_ray *ray, t_hit_info *hit_info)
 }
 
 // Calculate the color of a single pixel	
-t_color	draw_pixel(t_scene *scene, int u, int v)
+void	draw_pixel(t_scene *scene, int u, int v, t_color *color)
 {
 	t_ray		ray;
 	t_hit_info	hit_info;
 
 	hit_info.color = _color(0, 0, 0, 0);
+	hit_info.collided = false;
+	hit_info.dist = INFINITY;
 	ray = get_ray(scene->objs->camera, u, v, scene->mlx);
-	trace_ray(scene->objs, &ray, &hit_info);
-	mix_color(hit_info.color, scene->objs->amblight->color);
-	return (hit_info.color);
+	hit(scene->objs, ray, &hit_info);
+	if (hit_info.collided)
+	{
+		add_light(scene->objs, &hit_info);
+	}
+	color->r = hit_info.color.r;
+	color->g = hit_info.color.g;
+	color->b = hit_info.color.b;
+	color->a = hit_info.color.a;
 }
