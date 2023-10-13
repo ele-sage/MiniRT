@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:30:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/12 19:38:41 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:36:32 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@ typedef struct	s_plane
     t_vec3		    dir;
     t_color		    color;
 }				t_plane;
+
+typedef struct	s_disk
+{
+	t_vec3		    pos;
+	t_vec3		    dir;
+	double		    radius;
+	t_color		    color;
+}				t_disk;
 
 typedef struct	s_cylinder
 {

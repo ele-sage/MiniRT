@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_op2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:58:09 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/12 23:18:41 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:35:31 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,19 @@ void calculateCylinderNormal(t_vec3 v, t_vec3 *n, t_vec3 cylco)
         n->y = 0;
         n->z = 1;
     }
+}
+
+t_vec3	vec3_scale(double alpha, t_vec3 a)
+{
+	return ((t_vec3){alpha * a.x, alpha * a.y, alpha * a.z});
+}
+
+t_vec3	vec3_lin_comb(double alpha, t_vec3 a, double beta, t_vec3 b)
+{
+	return (vec3_add(vec3_scale(alpha, a), vec3_scale(beta, b)));
+}
+
+double	vec3_dist(t_vec3 a, t_vec3 b)
+{
+	return (vec3_length(vec3_sub(a, b)));
 }

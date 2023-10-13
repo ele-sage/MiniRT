@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:54:32 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/11 12:36:43 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:37:27 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,21 @@ void	move(mlx_key_data_t key_data, void *param)
 		exit(0);
 	}
 	if (key_data.key == MLX_KEY_W)
-		camera->pos = vec3_add(camera->pos, vec3_mul(camera->dir, 0.1));
+		camera->pos = vec3_add(camera->pos, vec3_mul(camera->dir, 1));
 	else if (key_data.key == MLX_KEY_S)
-		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->dir, 0.1));
+		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->dir, 1));
 	else if  (key_data.key == MLX_KEY_A)
-		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->right, 0.1));
+		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->right, 1));
 	else if  (key_data.key == MLX_KEY_D)
-		camera->pos = vec3_add(camera->pos, vec3_mul(camera->right, 0.1));
+		camera->pos = vec3_add(camera->pos, vec3_mul(camera->right, 1));
 	else if  (key_data.key == MLX_KEY_LEFT)
 		rotate_camera(camera, 0.1);
 	else if  (key_data.key == MLX_KEY_RIGHT)
 		rotate_camera(camera, -0.1);
+	else if  (key_data.key == MLX_KEY_UP)
+		camera->pos = vec3_add(camera->pos, vec3_mul(camera->up, 0.1));
+	else if  (key_data.key == MLX_KEY_DOWN)
+		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->up, 0.1));
 	else
 		changed = false;
 	if (changed)
