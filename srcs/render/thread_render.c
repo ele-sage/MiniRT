@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:52:46 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/12 20:22:47 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 22:21:57 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ static void	*render_thread(void *arg)
 		u = 0;
 		while (u < data->scene->mlx->width)
 		{
-			color = (t_color){0, 0, 0, 255};
+			color = (t_color){50, 10, 50, 255};
 			draw_pixel(data->scene, u, v, &color);
-
 			mlx_put_pixel(data->scene->img, u, v, rgba_to_int(&color));
 			u++;
 		}

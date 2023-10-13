@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   component.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:27:35 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/12 20:22:14 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:16:41 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_vec3		vec3_norm(t_vec3 u);
 t_vec3		vec3_rotate(t_vec3 dir, double angle);
 t_vec3		vec3_reflect(t_vec3 v, t_vec3 n);
 int32_t		rgba_to_int(t_color *color);
+void calculateCylinderNormal(t_vec3 v, t_vec3 *n, t_vec3 cylco);
 
 t_vec3		_vec3(double x, double y, double z);
 t_color		_color(float r, float g, float b, float a);

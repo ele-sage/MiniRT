@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/11 16:13:11 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/12 23:15:55 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,9 @@ void	hit_cylinder(t_cylinder *cylinder, t_ray ray, t_hit_info *hit_info)
 	}
 	else
 		hit_info->collided = true;
-	hit_info->hit.dir = vec3_norm(vec3_sub(hit_info->hit.pos, cylinder->pos));
+	calculateCylinderNormal(hit_info->hit.pos, &hit_info->hit.dir, cylinder->pos);
+	hit_info->hit.dir = vec3_norm(hit_info->hit.dir);
+	//printf("%f %f %f\n", hit_info->hit.dir.x, hit_info->hit.dir.y, hit_info->hit.dir.z);
 	hit_info->color = cylinder->color;
 }
 
