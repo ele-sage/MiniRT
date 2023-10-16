@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:30:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 10:04:47 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:47:50 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct	s_sphere
     t_vec3		    pos;
     double		    radius;
     t_color		    color;
+    bool            selected;
 }				t_sphere;
 
 typedef struct	s_plane
@@ -27,6 +28,7 @@ typedef struct	s_plane
     t_vec3		    pos;
     t_vec3		    dir;
     t_color		    color;
+    bool            selected;
 }				t_plane;
 
 typedef struct	s_disk
@@ -45,6 +47,7 @@ typedef struct	s_cylinder
     double		    radius;
     double		    height;
     t_color         color;
+    bool            selected;
 }				t_cylinder;
 
 typedef struct	s_amblight
@@ -93,7 +96,15 @@ typedef struct	s_hit_info
 	double		dist;
 	bool		collided;
     void        *obj_hit;
+    int         type;
 }				t_hit_info;
+
+typedef struct	s_form
+{
+    t_sphere	*sphere;
+    t_plane		*plane;
+    t_cylinder	*cylinder;
+}				t_form;
 
 t_objects       *new_objects(t_parse *parse);
 

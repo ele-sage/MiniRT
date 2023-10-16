@@ -6,7 +6,7 @@
 /*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 14:20:18 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:32:07 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_sphere	*new_sphere(char **components)
 	sphere = malloc(sizeof(t_sphere));
 	if (!sphere)
 		return (NULL);
+	sphere->selected = 0;
 	split = ft_split(components[1], ',');
 	if (!split)
 		return (free(sphere), NULL);
@@ -42,6 +43,7 @@ t_plane	*new_plane(char **components)
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
 		return (NULL);
+	plane->selected = 0;
 	split = ft_split(components[1], ',');
 	if (!split)
 		return (free(plane), NULL);
@@ -68,6 +70,7 @@ t_cylinder	*new_cylinder(char **components)
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (NULL);
+	cylinder->selected = 0;
 	split = ft_split(components[1], ',');
 	if (!split)
 		return (free(cylinder), NULL);

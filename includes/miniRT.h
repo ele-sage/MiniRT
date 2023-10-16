@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:40:54 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 12:07:35 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:53:31 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ struct	s_scene
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_objects		*objs;
+	void 			*selected;
 };
 
 typedef struct	s_thread

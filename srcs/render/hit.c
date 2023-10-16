@@ -6,7 +6,7 @@
 /*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 14:34:44 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:43:23 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	hit_sphere(t_sphere *sphere, t_ray ray, t_hit_info *hit_info)
 	hit_info->hit.dir = vec3_norm(vec3_sub(hit_info->hit.pos, sphere->pos));
 	hit_info->color = sphere->color;
 	hit_info->obj_hit = (void *)sphere;
+	hit_info->type = 2;
 }
 
 void	hit_plane(t_plane *plane, t_ray ray, t_hit_info *hit_info)
@@ -70,6 +71,7 @@ void	hit_plane(t_plane *plane, t_ray ray, t_hit_info *hit_info)
 			hit_info->hit.dir = vec3_mul(hit_info->hit.dir, -1);
 		hit_info->color = plane->color;
 		hit_info->obj_hit = (void *)plane;
+		hit_info->type = 1;
 	}
 }
 
@@ -135,6 +137,7 @@ void	set_values(t_hit_info *hit_info, double t,
 	hit_info->hit.dir = vec3_norm(hit_info->hit.dir);
 	hit_info->color = cylinder->color;
 	hit_info->obj_hit = (void *)cylinder;
+	hit_info->type = 0;
 }
 
 void	intersect_tube(t_cylinder *cylinder, t_ray *ray, t_hit_info *hit_info)
