@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/12 23:44:34 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:45:24 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	hit_sphere(t_sphere *sphere, t_ray ray, t_hit_info *hit_info)
 	hit_info->hit.pos = vec3_add(ray.pos, vec3_mul(ray.dir, hit_info->dist));
 	hit_info->hit.dir = vec3_norm(vec3_sub(hit_info->hit.pos, sphere->pos));
 	hit_info->color = sphere->color;
+	hit_info->obj_hit = (void *)sphere;
 }
 
 void	hit_plane(t_plane *plane, t_ray ray, t_hit_info *hit_info)
@@ -78,6 +79,7 @@ void	hit_plane(t_plane *plane, t_ray ray, t_hit_info *hit_info)
 	hit_info->hit.pos = vec3_add(ray.pos, vec3_mul(ray.dir, hit_info->dist));
 	hit_info->hit.dir = plane->dir;
 	hit_info->color = plane->color;
+	hit_info->obj_hit = (void *)plane;
 }
 
 void intersect_disc(t_disk *disk, t_ray *ray, t_hit_info *hit_info)
@@ -148,6 +150,7 @@ void	intersect_tube(t_cylinder *cylinder, t_ray *ray, t_hit_info *hit_info)
 	calculateCylinderNormal(hit_info->hit.pos, &hit_info->hit.dir, cylinder->pos);
 	hit_info->hit.dir = vec3_norm(hit_info->hit.dir);
 	hit_info->color = cylinder->color;
+	hit_info->obj_hit = (void *)cylinder;
 }
 
 void	hit_cylinder(t_cylinder *cylinder, t_ray ray, t_hit_info *hit_info)
@@ -177,19 +180,22 @@ void	hit(t_objects *objects, t_ray ray, t_hit_info *hit_info)
 	i = 0;
 	while (i < objects->nb_sphere)
 	{
-		hit_sphere(objects->sphere[i], ray, hit_info);
+		if((t_sphere *)hit_info->obj_hit != objects->sphere[i])
+			hit_sphere(objects->sphere[i], ray, hit_info);
 		i++;
 	}
 	i = 0;
 	while (i < objects->nb_plane)
 	{
-		hit_plane(objects->plane[i], ray, hit_info);
+		if((t_plane *)hit_info->obj_hit != objects->plane[i])
+			hit_plane(objects->plane[i], ray, hit_info);
 		i++;
 	}
 	i = 0;
 	while (i < objects->nb_cylinder)
 	{
-		hit_cylinder(objects->cylinder[i], ray, hit_info);
+		if((t_cylinder *)hit_info->obj_hit != objects->cylinder[i])
+			hit_cylinder(objects->cylinder[i], ray, hit_info);
 		i++;
 	}
 }

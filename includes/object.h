@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:30:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/12 23:36:32 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:44:14 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct	s_hit_info
 	t_color		color;
 	double		dist;
 	bool		collided;
+    void        *obj_hit;
 }				t_hit_info;
 
 t_objects       *new_objects(t_parse *parse);

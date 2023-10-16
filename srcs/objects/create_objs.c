@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_objs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/12 19:43:35 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/15 20:48:55 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ t_amblight *new_amblight(char **components)
     if (!split)
         return (free(amblight), NULL);
     amblight->color = new_color(split);
+	amblight->color.r *= amblight->ratio;
+	amblight->color.g *= amblight->ratio;
+	amblight->color.b *= amblight->ratio;
     ft_free_split(split);
     return (amblight);
 }
