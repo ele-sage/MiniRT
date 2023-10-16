@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 07:21:13 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/15 20:47:29 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:12:22 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,29 @@ void	add_light(t_objects *objs, t_hit_info *hit_info, t_color *color)
 		color->r = 1;
 }
 
-//void	trace_ray(t_objects *objs, t_ray *ray, t_hit_info *hit_info)
-//{
-//	int	bounces = 1;
-//	int	i;
+// void	trace_ray(t_objects *objs, t_ray *ray, t_hit_info *hit_info, t_color *color)
+// {
+// 	int	bounces = 3;
+// 	int	i;
 
-//	i = 0;
-//	while (i < bounces)
-//	{
-//		hit_info->collided = false;
-//		hit_info->dist = INFINITY;
-//		hit(objs, *ray, hit_info);
-//		if (hit_info->collided)
-//		{
-//			add_light(objs, hit_info, color);
-//			ray->pos = vec3_add(hit_info->hit.pos, vec3_mul(hit_info->hit.dir, 0.0001));
-//			ray->dir = vec3_reflect(ray->dir, hit_info->hit.dir);
-//			ray->dir = vec3_norm(ray->dir);
-//		}
-//		else
-//			return ;
-//		i++;
-//	}
-//}
+// 	i = 0;
+// 	while (i < bounces)
+// 	{
+// 		hit_info->collided = false;
+// 		hit_info->dist = INFINITY;
+// 		hit(objs, *ray, hit_info);
+// 		if (hit_info->collided)
+// 		{
+// 			add_light(objs, hit_info, color);
+// 			ray->pos = vec3_add(hit_info->hit.pos, vec3_mul(hit_info->hit.dir, 0.0001));
+// 			ray->dir = vec3_reflect(ray->dir, hit_info->hit.dir);
+// 			ray->dir = vec3_norm(ray->dir);
+// 		}
+// 		else
+// 			return ;
+// 		i++;
+// 	}
+// }
 
 // Calculate the color of a single pixel	
 void	draw_pixel(t_scene *scene, int u, int v, t_color *color)
@@ -91,11 +91,12 @@ void	draw_pixel(t_scene *scene, int u, int v, t_color *color)
 	t_ray		ray;
 	t_hit_info	hit_info;
 
-	hit_info.color = _color(0, 0, 0, 255);
+	hit_info.color = (t_color){0, 0, 0, 0};
 	hit_info.collided = false;
 	hit_info.dist = INFINITY;
 	hit_info.obj_hit = NULL;
 	ray = get_ray(scene->objs->camera, u, v, scene->mlx);
+	// trace_ray(scene->objs, &ray, &hit_info, color);
 	hit(scene->objs, ray, &hit_info);
 	if (hit_info.collided)
 		add_light(scene->objs, &hit_info, color);

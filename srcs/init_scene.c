@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 06:16:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 13:34:10 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 08:34:42 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ t_scene	*init_scene(int argc, char **argv)
 	t_parse		*parse;
 	t_objects	*object;
 
-	if (argc < 2)
-		return (NULL);
 	parse = parsing(argc, argv);
 	if (!parse)
 		return (NULL);

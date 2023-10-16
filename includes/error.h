@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:49:33 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/10 22:16:04 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 08:46:42 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define ERROR_H
 
 # include "miniRT.h"
+
+# define ERR_CY "Cylinder\n"
+# define ERR_SP "Sphere\n"
+# define ERR_PL "Plane\n"
+# define ERR_AM "Ambient light\n"
+# define ERR_CA "Camera\n"
+# define ERR_LI "Light\n"
 
 # define ERR_COLOR "Need a color. Format : R,G,B (each value must be an integer between 0 and 255)\n"
 # define ERR_VEC3 "Need a vector. Format : X,Y,Z (each value must be a float)\n"
@@ -29,8 +36,7 @@
 # define ERR_READ "Unable to read file\n"
 # define ERR_MLX "Unable to initialize MLX\n"
 
-
-# define REQUIRED "List of required elements :\n\
+# define REQUIRED "List of required elements in file.rt :\n\
     - (only 1) Ambient light : (ID = A, color = RGB, ratio = float [0, 1])\n\
     - (only 1) Camera : (ID = C, position = XYZ, orientation = XYZ, fov = int [0, 180])\n\
     - (only 1) Light : (ID = L, position = XYZ, ratio = float [0, 1], color = RGB)\n\
@@ -48,8 +54,8 @@ Example :\n\
     sp 0,0,20    20    255,0,0\n\
     cy 50.0,0.0,20.6    0,0,1.0    14.2 21.42    10,0,255\n"
 
-bool    ft_error(char *str);
-void	*ft_error_free(t_parse *ptr);
+bool	ft_error(char *str, char *obj);
+void	*ft_error_free(t_parse *ptr, char *str);
 double	pseudo_rand(void);
 
 #endif

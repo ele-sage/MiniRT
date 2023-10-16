@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_utils.c                                      :+:      :+:    :+:   */
+/*   check_components.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:43:46 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/07 14:23:10 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 08:49:35 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ bool	check_color(char *color)
 	while (rgb[i])
 	{
 		if (!ft_isint(rgb[i]))
-		{
-			printf("rgb[%d] = %s\n", i, rgb[i]);
 			break;
-		}
 		if (!check_range(rgb[i], 0, 255))
 			break;
 		i++;
@@ -105,13 +102,13 @@ bool check_normal(char *elem)
 bool    check_plane(char **elem, t_parse *parse)
 {
 	if (ft_splitlen(elem) != 4)
-		return (ft_error("Error: Plane must have 4 arguments\n"));
+		return (ft_error("Error: Plane must have 4 arguments\n", NULL));
 	if (!check_coordinates(elem[1]))
-		return (ft_error(ERR_VEC3));
+		return (ft_error(ERR_VEC3, ERR_PL));
 	if (!check_normal(elem[2]))
-		return (ft_error(ERR_NORMAL));
+		return (ft_error(ERR_NORMAL, ERR_PL));
 	if (!check_color(elem[3]))
-		return (ft_error(ERR_COLOR));
+		return (ft_error(ERR_COLOR, ERR_PL));
 	parse->nb_obj[4]++;
 	return (true);
 }

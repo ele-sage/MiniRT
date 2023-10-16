@@ -6,13 +6,13 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:13:42 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/12 19:43:17 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 10:05:58 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-t_vec3 new_vec3(char **components)
+t_vec3	new_vec3(char **components)
 {
     t_vec3	vec3;
 
@@ -22,7 +22,7 @@ t_vec3 new_vec3(char **components)
     return (vec3);
 }
 
-t_color new_color(char **components)
+t_color	new_color(char **components)
 {
     t_color	color;
 
@@ -33,7 +33,7 @@ t_color new_color(char **components)
 	return (color);
 }
 
-void add_sphere(t_objects *object, char **components)
+void	add_sphere(t_objects *object, char **components)
 {
     int i;
 
@@ -43,7 +43,7 @@ void add_sphere(t_objects *object, char **components)
     object->sphere[i] = new_sphere(components);
 }
 
-void add_plane(t_objects *object, char **components)
+void	add_plane(t_objects *object, char **components)
 {
     int i;
 
@@ -53,7 +53,23 @@ void add_plane(t_objects *object, char **components)
     object->plane[i] = new_plane(components);
 }
 
-void add_cylinder(t_objects *object, char **components)
+void	add_disk(t_cylinder *cylinder)
+{
+	t_vec3	origin;
+
+	origin = vec3_add(cylinder->pos, vec3_mul(cylinder->dir, cylinder->height / 2));
+	cylinder->disk[0].pos = origin;
+	cylinder->disk[0].dir = cylinder->dir;
+	cylinder->disk[0].radius = cylinder->radius;
+	cylinder->disk[0].color = cylinder->color;
+	origin = vec3_sub(cylinder->pos, vec3_mul(cylinder->dir, cylinder->height / 2));
+	cylinder->disk[1].pos = origin;
+	cylinder->disk[1].dir = cylinder->dir;
+	cylinder->disk[1].radius = cylinder->radius;
+	cylinder->disk[1].color = cylinder->color;
+}
+
+void	add_cylinder(t_objects *object, char **components)
 {
     int i;
 

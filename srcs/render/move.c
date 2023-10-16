@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:54:32 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/15 20:55:46 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/16 10:08:38 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	move(mlx_key_data_t key_data, void *param)
 	else if  (key_data.key == MLX_KEY_RIGHT)
 		rotate_camera(camera, -0.1);
 	else if  (key_data.key == MLX_KEY_UP)
-		camera->pos = vec3_add(camera->pos, vec3_mul(camera->up, 0.1));
+		camera->pos = vec3_add(camera->pos, vec3_mul(camera->up, 1));
 	else if  (key_data.key == MLX_KEY_DOWN)
-		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->up, 0.1));
+		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->up, 1));
 	else
 		changed = false;
 	if (changed)

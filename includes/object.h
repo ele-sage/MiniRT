@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:30:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/15 20:44:14 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/16 10:04:47 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_disk
 
 typedef struct	s_cylinder
 {
+	t_disk		    disk[2];
     t_vec3		    pos;
     t_vec3		    dir;
     double		    radius;
@@ -105,6 +106,7 @@ t_camera        *new_camera(char **components);
 
 void            add_sphere(t_objects *object, char **components);
 void            add_plane(t_objects *object, char **components);
+void			add_disk(t_cylinder *cylinder);
 void            add_cylinder(t_objects *object, char **components);
 
 t_vec3          new_vec3(char **components);

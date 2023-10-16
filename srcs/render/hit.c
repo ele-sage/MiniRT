@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/15 20:45:24 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:10:44 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,51 +61,62 @@ void	hit_sphere(t_sphere *sphere, t_ray ray, t_hit_info *hit_info)
 
 void	hit_plane(t_plane *plane, t_ray ray, t_hit_info *hit_info)
 {
-	t_equation	equation;
-	t_vec3		oc;
+	double	t;
+	double	denom;
+	t_vec3	oc;
 
-	oc = vec3_sub(ray.pos, plane->pos);
-	equation.a = vec3_dot(ray.dir, plane->dir);
-	equation.b = vec3_dot(oc, plane->dir);
-	if (equation.a == 0)
-		return ;
-	equation.t1 = -equation.b / equation.a;
-	if (equation.t1 < 0)
-		return ;
-	if (hit_info->dist < equation.t1)
-		return ;
-	hit_info->dist = equation.t1;
-	hit_info->collided = true;
-	hit_info->hit.pos = vec3_add(ray.pos, vec3_mul(ray.dir, hit_info->dist));
-	hit_info->hit.dir = plane->dir;
-	hit_info->color = plane->color;
-	hit_info->obj_hit = (void *)plane;
+	denom = vec3_dot(plane->dir, ray.dir);
+	if (fabs(denom) > 1e-6)
+	{
+		oc = vec3_sub(plane->pos, ray.pos);
+		t = vec3_dot(oc, plane->dir) / denom;
+		if (t < 0 || hit_info->dist < t)
+			return ;
+		hit_info->dist = t;
+		hit_info->collided = true;
+		hit_info->hit.pos = vec3_add(ray.pos, vec3_mul(ray.dir, hit_info->dist));
+		hit_info->hit.dir = plane->dir;
+		hit_info->color = plane->color;
+		hit_info->obj_hit = (void *)plane;
+	}
 }
 
 void intersect_disc(t_disk *disk, t_ray *ray, t_hit_info *hit_info)
 {
-	double	denominator;
 	double	t;
-	t_vec3	hit_pos;
-	t_vec3	hit_dir;
+	double	denom;
+	t_vec3	oc;
+	t_vec3	p;
+	t_vec3	v;
 
-	denominator = vec3_dot(disk->dir, ray->dir);
-	if (fabs(denominator) > 1e-6)
+	denom = vec3_dot(disk->dir, ray->dir);
+	if (fabs(denom) > 1e-6)
 	{
-		t = vec3_dot(vec3_sub(disk->pos, ray->pos), disk->dir) / denominator;
-		if (vec3_dist(disk->pos,
-				vec3_lin_comb(1.0, ray->pos, t, ray->dir)) <= disk->radius)
-		{
-			hit_info->dist = t;
-			hit_info->collided = true;
-			hit_pos = vec3_lin_comb(1.0, ray->pos, t, ray->dir);
-			hit_dir = vec3_sub(hit_pos, disk->pos);
-			hit_dir = vec3_norm(hit_dir);
-			hit_info->hit.pos = hit_pos;
-			hit_info->hit.dir = hit_dir;
-			hit_info->color = disk->color;
-		}
+		oc = vec3_sub(disk->pos, ray->pos);
+		t = vec3_dot(oc, disk->dir) / denom;
+		if (t < 0 || hit_info->dist < t)
+			return ;
+		p = vec3_add(ray->pos, vec3_mul(ray->dir, t));
+		v = vec3_sub(p, disk->pos);
+		if (vec3_dot(v, v) > disk->radius * disk->radius)
+			return ;
+		hit_info->dist = t;
+		hit_info->collided = true;
+		hit_info->hit.pos = p;
+		hit_info->hit.dir = disk->dir;
+		hit_info->color = disk->color;
+		hit_info->obj_hit = (void *)disk;
 	}
+}
+
+static void normal_of_tube(t_cylinder *cylinder, t_hit_info *hit_info)
+{
+	t_vec3	proj;
+	t_vec3	oc;
+
+	oc = vec3_sub(hit_info->hit.pos, cylinder->pos);
+	proj = vec3_mul(cylinder->dir, vec3_dot(oc, cylinder->dir));
+	hit_info->hit.dir = vec3_norm(vec3_sub(oc, proj));
 }
 
 static void	intersect_tube_quadratic(t_cylinder *cylinder, t_ray *ray, double abc[3])
@@ -144,10 +155,13 @@ void	intersect_tube(t_cylinder *cylinder, t_ray *ray, t_hit_info *hit_info)
 		if (fabs(h) > cylinder->height / 2.0)
 			return ;
 	}
+	if (t < 0 || hit_info->dist < t)
+		return ;
 	hit_info->dist = t;
 	hit_info->collided = true;
 	hit_info->hit.pos = vec3_add(ray->pos, vec3_mul(ray->dir, hit_info->dist));
 	calculateCylinderNormal(hit_info->hit.pos, &hit_info->hit.dir, cylinder->pos);
+	normal_of_tube(cylinder, hit_info);
 	hit_info->hit.dir = vec3_norm(hit_info->hit.dir);
 	hit_info->color = cylinder->color;
 	hit_info->obj_hit = (void *)cylinder;
@@ -155,21 +169,8 @@ void	intersect_tube(t_cylinder *cylinder, t_ray *ray, t_hit_info *hit_info)
 
 void	hit_cylinder(t_cylinder *cylinder, t_ray ray, t_hit_info *hit_info)
 {
-	t_disk	disk[2];
-	t_ray	ray2;
-
-	disk[0].pos = vec3_add(cylinder->pos, vec3_mul(cylinder->dir, cylinder->height / 2));
-	disk[0].dir = cylinder->dir;
-	disk[0].radius = cylinder->radius;
-	disk[0].color = cylinder->color;
-	disk[1].pos = vec3_add(cylinder->pos, vec3_mul(cylinder->dir, -cylinder->height / 2));
-	disk[1].dir = vec3_mul(cylinder->dir, -1);
-	disk[1].radius = cylinder->radius;
-	disk[1].color = cylinder->color;
-	ray2.pos = ray.pos;
-	ray2.dir = vec3_mul(ray.dir, -1);
-	intersect_disc(&disk[0], &ray, hit_info);
-	intersect_disc(&disk[1], &ray, hit_info);
+	intersect_disc(&cylinder->disk[0], &ray, hit_info);
+	intersect_disc(&cylinder->disk[1], &ray, hit_info);
 	intersect_tube(cylinder, &ray, hit_info);
 }
 

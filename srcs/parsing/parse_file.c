@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:13:04 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/09 09:25:26 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 08:44:48 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static bool	check_extension(int argc, char **argv)
 
 	i = 0;
 	if (argc != 2)
-		return (ft_error(ERR_FILE), false);
+		return (ft_error(ERR_FILE, NULL), false);
 	while (argv[1][i])
 		i++;
 	if (i < 4)
-		return (ft_error(ERR_EXT), false);
+		return (ft_error(ERR_EXT, NULL), false);
 	if (argv[1][i - 1] != 't' || argv[1][i - 2] != 'r' || argv[1][i - 3] != '.')
-		return (ft_error(ERR_EXT), false);
+		return (ft_error(ERR_EXT, NULL), false);
 	return (true);
 }
 
@@ -43,7 +43,10 @@ static void	check_objs(t_parse *parse, char **elem)
 	else if (ft_strncmp(elem[0], "pl", 3) == 0)
 		parse->is_valid = check_plane(elem, parse);
 	else
+	{
 		parse->is_valid = false;
+		ft_error(ERR_ID, elem[0]);
+	}
 }
 
 // Should also check for /t
@@ -96,7 +99,7 @@ t_parse	*parsing(int argc, char **argv)
 		return (NULL);
 	parse = malloc(sizeof(t_parse));
 	if (!parse)
-		return (ft_error(ERR_MALLOC), NULL);
+		return (ft_error(ERR_MALLOC, NULL), NULL);
 	parse->nb_obj[0] = 0;
 	parse->nb_obj[1] = 0;
 	parse->nb_obj[2] = 0;
@@ -108,10 +111,10 @@ t_parse	*parsing(int argc, char **argv)
 	parse->is_valid = true;
 	parse->fd = open(parse->file, O_RDONLY);
 	if (parse->fd < 0)
-		return (ft_error_free(parse));
+		return (ft_error_free(parse, ERR_OPEN));
 	if (!fill_tab(parse))
-		return (ft_error_free(parse));
+		return (ft_error_free(parse, NULL));
 	if (parse->nb_obj[0] != 1 || parse->nb_obj[1] != 1 || parse->nb_obj[2] != 1)
-		return (ft_error_free(parse));
+		return (ft_error_free(parse, REQUIRED));
 	return (parse);
 }

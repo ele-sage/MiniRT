@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   create_objs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/15 20:48:55 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/16 10:04:24 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+
 
 t_sphere *new_sphere(char **components)
 {
@@ -85,6 +87,7 @@ t_cylinder *new_cylinder(char **components)
         return (free(cylinder), NULL);
     cylinder->color = new_color(split);
     ft_free_split(split);
+	add_disk(cylinder);
     return (cylinder);
 }
 
