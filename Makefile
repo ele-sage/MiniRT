@@ -6,7 +6,7 @@
 #    By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/12 12:33:49 by ele-sage          #+#    #+#              #
-#    Updated: 2023/10/16 12:10:36 by ele-sage         ###   ########.fr        #
+#    Updated: 2023/10/16 13:14:28 by ele-sage         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBMLX = mlx/libmlx42.a
 LIBGLFW = mlx/libglfw3.a
 
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -Ilibft/ -Iinclude/ -fsanitize=address -g3 
+CFLAGS = -Wall -Werror -Wextra -Ilibft/ -Iinclude/ -Ofast
 LDFLAGS = -Llibft/ -Lmlx/
 LDLIBS = -framework OpenGL -framework AppKit -framework IOKit -lft -lmlx42 -lglfw3
 

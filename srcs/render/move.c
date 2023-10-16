@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:54:32 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 12:15:00 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 13:55:05 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,27 @@ void	move(mlx_key_data_t key_data, void *param)
 		create_thread(scene);
 }
 
+void	render(t_scene *scene)
+{
+	int u;
+	int v;
+	t_color color;
+	
+	u = 0;
+	while (u < scene->mlx->width)
+	{
+		v = 0;
+		while (v < scene->mlx->height)
+		{
+			color = (t_color){0, 0, 100, 255};
+			draw_pixel(scene, u, v, &color);
+			mlx_put_pixel(scene->img, u, v, rgba_to_int(&color));
+			v++;
+		}
+		u++;
+	}
+}
+
 void	reseize(int32_t width, int32_t height, void *param)
 {
 	t_scene		*scene;
@@ -76,12 +97,10 @@ void	reseize(int32_t width, int32_t height, void *param)
 
 	scene = (t_scene*)param;
 	camera = scene->objs->camera;
+	camera->aspect_ratio = width / height;
+	camera->half_h = camera->half_w * height / width;
+	scene->mlx->width = width;
+	scene->mlx->height = height;
 	mlx_resize_image(scene->img, width, height);
-	camera->up = (t_vec3){0, 1, 0};
-	camera->right = vec3_norm(vec3_cross(camera->dir, camera->up));
-	camera->aspect_ratio = (double)WIDTH / (double)HEIGHT;
-	camera->theta = camera->fov * M_PI / 180;
-	camera->half_h = tan(camera->theta / 2);
-	camera->half_w = camera->aspect_ratio * camera->half_h;
 	create_thread(scene);
 }
