@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:46:27 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/11 09:26:32 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:39:22 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,5 @@ void	free_scene(t_scene *scene)
 	mlx_terminate(scene->mlx);
 	free_objects(scene->objs);
 	free(scene);
+	exit (0);
 }

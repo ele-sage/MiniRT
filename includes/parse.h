@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:08:39 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/04 09:41:40 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:24:41 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_parse	*parsing(int argc, char **argv);
 bool	check_range(char *str, float min, float max);
 bool	check_color(char *color);
 bool	check_coordinates(char *elem);
-bool	check_normal(char *elem);
+bool	check_normal(char *elem, int lenght);
 
 // Check Each Element of the Scene (Ambient, Camera, Light, Sphere, Cylinder, Plane)
 bool	check_ambient(char **elem, t_parse *parse);

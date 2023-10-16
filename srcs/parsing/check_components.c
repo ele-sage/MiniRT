@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   check_components.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:43:46 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 08:49:35 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:25:13 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-bool check_range(char *str, float min, float max)
+bool	check_range(char *str, float min, float max)
 {
-	float   nb;
+	float	nb;
 
 	nb = ft_atof(str);
 	if (nb < min || nb > max)
@@ -34,9 +34,9 @@ bool	check_color(char *color)
 	while (rgb[i])
 	{
 		if (!ft_isint(rgb[i]))
-			break;
+			break ;
 		if (!check_range(rgb[i], 0, 255))
-			break;
+			break ;
 		i++;
 	}
 	ft_free_split(rgb);
@@ -45,10 +45,10 @@ bool	check_color(char *color)
 	return (true);
 }
 
-bool check_coordinates(char *elem)
+bool	check_coordinates(char *elem)
 {
-	char    **coord;
-	int     i;
+	char	**coord;
+	int		i;
 
 	coord = ft_split(elem, ',');
 	if (ft_splitlen(coord) != 3)
@@ -60,7 +60,7 @@ bool check_coordinates(char *elem)
 	while (coord[i])
 	{
 		if (!ft_isfloat(coord[i]) && !ft_isint(coord[i]))
-			break;
+			break ;
 		i++;
 	}
 	ft_free_split(coord);
@@ -69,13 +69,11 @@ bool check_coordinates(char *elem)
 	return (true);
 }
 
-bool check_normal(char *elem)
+bool	check_normal(char *elem, int lenght)
 {
-	char    **coord;
-	float   lenght;
-	int     i;
+	char	**coord;
+	int		i;
 
-	lenght = 0;
 	coord = ft_split(elem, ',');
 	if (ft_splitlen(coord) != 3)
 	{
@@ -86,7 +84,7 @@ bool check_normal(char *elem)
 	while (coord[i])
 	{
 		if (!ft_isfloat(coord[i]) && !ft_isint(coord[i]))
-			break;
+			break ;
 		lenght += ft_atof(coord[i]) * ft_atof(coord[i]);
 		i++;
 	}
@@ -99,13 +97,13 @@ bool check_normal(char *elem)
 	return (true);
 }
 
-bool    check_plane(char **elem, t_parse *parse)
+bool	check_plane(char **elem, t_parse *parse)
 {
 	if (ft_splitlen(elem) != 4)
 		return (ft_error("Error: Plane must have 4 arguments\n", NULL));
 	if (!check_coordinates(elem[1]))
 		return (ft_error(ERR_VEC3, ERR_PL));
-	if (!check_normal(elem[2]))
+	if (!check_normal(elem[2], 0))
 		return (ft_error(ERR_NORMAL, ERR_PL));
 	if (!check_color(elem[3]))
 		return (ft_error(ERR_COLOR, ERR_PL));

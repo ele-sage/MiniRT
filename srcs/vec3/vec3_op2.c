@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_op2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 13:58:09 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/12 23:35:31 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:18:30 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,24 +59,6 @@ t_vec3	vec3_rotate(t_vec3 dir, double angle)
 	new_dir.y = dir.x * sin(angle) + dir.y * cos(angle);
 	new_dir.z = dir.z;
 	return (new_dir);
-}
-
-void calculateCylinderNormal(t_vec3 v, t_vec3 *n, t_vec3 cylco)
-{
-	double x = v.x - cylco.x;
-	double y = v.y - cylco.y;
-	double z = v.z - cylco.z;
-    double magnitude = sqrt(x * x + y * y + z * z);
-
-    if (magnitude != 0) {
-        n->x = x / magnitude;
-        n->y = y / magnitude;
-        n->z = z / magnitude;
-    } else {
-        n->x = 0;
-        n->y = 0;
-        n->z = 1;
-    }
 }
 
 t_vec3	vec3_scale(double alpha, t_vec3 a)
