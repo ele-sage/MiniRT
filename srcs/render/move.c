@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:54:32 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 10:08:38 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 12:15:00 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,21 @@ void	move(mlx_key_data_t key_data, void *param)
 		changed = false;
 	if (changed)
 		create_thread(scene);
+}
+
+void	reseize(int32_t width, int32_t height, void *param)
+{
+	t_scene		*scene;
+	t_camera	*camera;
+
+	scene = (t_scene*)param;
+	camera = scene->objs->camera;
+	mlx_resize_image(scene->img, width, height);
+	camera->up = (t_vec3){0, 1, 0};
+	camera->right = vec3_norm(vec3_cross(camera->dir, camera->up));
+	camera->aspect_ratio = (double)WIDTH / (double)HEIGHT;
+	camera->theta = camera->fov * M_PI / 180;
+	camera->half_h = tan(camera->theta / 2);
+	camera->half_w = camera->aspect_ratio * camera->half_h;
+	create_thread(scene);
 }

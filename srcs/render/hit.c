@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 11:10:44 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:43:15 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	hit_plane(t_plane *plane, t_ray ray, t_hit_info *hit_info)
 		hit_info->collided = true;
 		hit_info->hit.pos = vec3_add(ray.pos, vec3_mul(ray.dir, hit_info->dist));
 		hit_info->hit.dir = plane->dir;
+		if (vec3_dot(plane->dir, ray.dir) > 0)
+			hit_info->hit.dir = vec3_mul(hit_info->hit.dir, -1);
 		hit_info->color = plane->color;
 		hit_info->obj_hit = (void *)plane;
 	}
@@ -160,7 +162,7 @@ void	intersect_tube(t_cylinder *cylinder, t_ray *ray, t_hit_info *hit_info)
 	hit_info->dist = t;
 	hit_info->collided = true;
 	hit_info->hit.pos = vec3_add(ray->pos, vec3_mul(ray->dir, hit_info->dist));
-	calculateCylinderNormal(hit_info->hit.pos, &hit_info->hit.dir, cylinder->pos);
+	// calculateCylinderNormal(hit_info->hit.pos, &hit_info->hit.dir, cylinder->pos);
 	normal_of_tube(cylinder, hit_info);
 	hit_info->hit.dir = vec3_norm(hit_info->hit.dir);
 	hit_info->color = cylinder->color;

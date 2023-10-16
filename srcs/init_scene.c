@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 06:16:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 08:34:42 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/16 11:52:01 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ static bool	init_mlx(t_scene *scene)
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 
-	scene->width = 1920;
-	scene->height = 1080;
-	mlx = mlx_init(scene->width, scene->height, "miniRT", true);
+	mlx = mlx_init(WIDTH, HEIGHT, "miniRT", true);
 	if (!mlx)
 		return (false);
-	img = mlx_new_image(mlx, scene->width, scene->height);
+	img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (!img)
 	{
 		mlx_terminate(mlx);
