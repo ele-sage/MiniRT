@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:44:43 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/08 06:33:00 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:57:46 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 
 # include "miniRT.h"
 
+typedef struct s_scene	t_scene;
+
 void	free_parsing(t_parse *parse);
 void	*free_objects(t_objects *object);
 void	*free_before_init(t_parse *parse, t_objects *object);
-void    *free_all(t_parse *parse, t_objects *object);
+void	*free_all(t_parse *parse, t_objects *object);
 void	free_scene(t_scene *scene);
 
 #endif

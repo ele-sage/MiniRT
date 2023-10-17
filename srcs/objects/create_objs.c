@@ -6,34 +6,11 @@
 /*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 16:32:07 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:34:34 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-t_sphere	*new_sphere(char **components)
-{
-	t_sphere	*sphere;
-	char		**split;
-
-	sphere = malloc(sizeof(t_sphere));
-	if (!sphere)
-		return (NULL);
-	sphere->selected = 0;
-	split = ft_split(components[1], ',');
-	if (!split)
-		return (free(sphere), NULL);
-	sphere->pos = new_vec3(split);
-	ft_free_split(split);
-	sphere->radius = ft_atof(components[2]) / 2;
-	split = ft_split(components[3], ',');
-	if (!split)
-		return (free(sphere), NULL);
-	sphere->color = new_color(split);
-	ft_free_split(split);
-	return (sphere);
-}
 
 t_plane	*new_plane(char **components)
 {
@@ -43,7 +20,6 @@ t_plane	*new_plane(char **components)
 	plane = malloc(sizeof(t_plane));
 	if (!plane)
 		return (NULL);
-	plane->selected = 0;
 	split = ft_split(components[1], ',');
 	if (!split)
 		return (free(plane), NULL);
@@ -70,7 +46,6 @@ t_cylinder	*new_cylinder(char **components)
 	cylinder = malloc(sizeof(t_cylinder));
 	if (!cylinder)
 		return (NULL);
-	cylinder->selected = 0;
 	split = ft_split(components[1], ',');
 	if (!split)
 		return (free(cylinder), NULL);
@@ -87,9 +62,8 @@ t_cylinder	*new_cylinder(char **components)
 	if (!split)
 		return (free(cylinder), NULL);
 	cylinder->color = new_color(split);
-	ft_free_split(split);
 	add_disk(cylinder);
-	return (cylinder);
+	return (ft_free_split(split), cylinder);
 }
 
 t_amblight	*new_amblight(char **components)
@@ -105,9 +79,6 @@ t_amblight	*new_amblight(char **components)
 	if (!split)
 		return (free(amblight), NULL);
 	amblight->color = new_color(split);
-	amblight->color.r *= amblight->ratio;
-	amblight->color.g *= amblight->ratio;
-	amblight->color.b *= amblight->ratio;
 	ft_free_split(split);
 	return (amblight);
 }
@@ -131,9 +102,6 @@ t_light	*new_light(char **components)
 		return (free(light), NULL);
 	light->color = new_color(split);
 	ft_free_split(split);
-	light->color.r *= light->ratio;
-	light->color.g *= light->ratio;
-	light->color.b *= light->ratio;
 	return (light);
 }
 

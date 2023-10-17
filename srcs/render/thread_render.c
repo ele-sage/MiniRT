@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread_render.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:52:46 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 14:00:18 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:04:55 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	*render_thread(void *arg)
 		u = 0;
 		while (u < data->scene->mlx->width)
 		{
-			color = (t_color){0, 0, 100, 255};
+			color = (t_color){0.1, 0.1, 0.1, 1};
 			draw_pixel(data->scene, u, v, &color);
 			mlx_put_pixel(data->scene->img, u, v, rgba_to_int(&color));
 			u++;
@@ -61,24 +61,3 @@ void	create_thread(t_scene *scene)
 		i++;
 	}
 }
-
-// void	render(t_scene *scene)
-// {
-// 	int u;
-// 	int v;
-// 	t_color color;
-	
-// 	u = 0;
-// 	while (u < scene->mlx->width)
-// 	{
-// 		v = 0;
-// 		while (v < scene->mlx->height)
-// 		{
-// 			color = (t_color){0, 0, 100, 255};
-// 			draw_pixel(scene, u, v, &color);
-// 			mlx_put_pixel(scene->img, u, v, rgba_to_int(&color));
-// 			v++;
-// 		}
-// 		u++;
-// 	}
-// }

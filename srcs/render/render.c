@@ -6,7 +6,7 @@
 /*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 07:21:13 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 15:01:05 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:14:15 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,41 @@ t_ray	get_ray(t_camera *camera, int u, int v, mlx_t *mlx)
 	return (ray);
 }
 
+void	check_max(t_color *color)
+{
+	if (color->r > 1)
+		color->r = 1;
+	if (color->g > 1)
+		color->g = 1;
+	if (color->b > 1)
+		color->b = 1;
+}
+
 void	adjust_color(t_color *color, t_hit_info *hit_info,
 			t_objects *objs, double dot)
 {
 	if (dot >= 0)
 	{
 		color->r = hit_info->color.r * (objs->light->color.r
-				* dot + objs->amblight->color.r);
+				* dot * objs->light->ratio + objs->amblight->color.r
+				* objs->amblight->ratio);
 		color->g = hit_info->color.g * (objs->light->color.g
-				* dot + objs->amblight->color.g);
+				* dot * objs->light->ratio + objs->amblight->color.g
+				* objs->amblight->ratio);
 		color->b = hit_info->color.b * (objs->light->color.b
-				* dot + objs->amblight->color.b);
+				* dot * objs->light->ratio + objs->amblight->color.b
+				* objs->amblight->ratio);
 	}
 	else
 	{
-		color->r = hit_info->color.r * objs->amblight->color.r;
-		color->g = hit_info->color.g * objs->amblight->color.g;
-		color->b = hit_info->color.b * objs->amblight->color.b;
+		color->r = hit_info->color.r * objs->amblight->color.r
+			* objs->amblight->ratio;
+		color->g = hit_info->color.g * objs->amblight->color.g
+			* objs->amblight->ratio;
+		color->b = hit_info->color.b * objs->amblight->color.b
+			* objs->amblight->ratio;
 	}
-	if (color->r > 1)
-		color->r = 1;
-	if (color->g > 1)
-		color->r = 1;
-	if (color->b > 1)
-		color->r = 1;
+	check_max(color);
 }
 
 void	add_light(t_objects *objs, t_hit_info *hit_info,

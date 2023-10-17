@@ -6,7 +6,7 @@
 /*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:40:54 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 16:53:31 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:52:31 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,37 @@
 # include <pthread.h>
 # include "../libft/include/libft.h"
 # include "../mlx/include/MLX42/MLX42.h"
-
-typedef struct	s_scene t_scene;
-
 # include "parse.h"
 # include "component.h"
 # include "error.h"
 # include "object.h"
 # include "ft_free.h"
 # include "render.h"
+# include "macro.h"
+
+typedef struct s_scene	t_scene;
 
 # define WIDTH 1920
 # define HEIGHT 1080
 # define THREADS 10
 
-struct	s_scene
+struct s_scene
 {
-	mlx_t			*mlx;
-	mlx_image_t		*img;
-	t_objects		*objs;
-	void 			*selected;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_objects	*objs;
+	void		*selected;
 };
 
-typedef struct	s_thread
+typedef struct s_thread
 {
 	t_scene		*scene;
 	int			thread_id;
-}				t_thread;
+}	t_thread;
 
 t_scene	*init_scene(int argc, char **argv);
 void	move(mlx_key_data_t key_data, void *param);
-void	reseize(int32_t width, int32_t height, void* param);
+void	reseize(int32_t width, int32_t height, void *param);
 void	create_thread(t_scene *scene);
 
-# endif
+#endif

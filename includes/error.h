@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
+/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:49:33 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 08:46:42 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:53:57 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # define ERR_AM "Ambient light\n"
 # define ERR_CA "Camera\n"
 # define ERR_LI "Light\n"
-
-# define ERR_COLOR "Need a color. Format : R,G,B (each value must be an integer between 0 and 255)\n"
+# define ERR_COLOR "Need a color. Format : \
+	R,G,B (each value must be an integer between 0 and 255)\n"
 # define ERR_VEC3 "Need a vector. Format : X,Y,Z (each value must be a float)\n"
 # define ERR_RATIO "Need a ratio between 0 and 1 (float)\n"
 # define ERR_FILE "Usage : ./miniRT <file.rt>\n"

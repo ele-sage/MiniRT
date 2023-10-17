@@ -6,32 +6,11 @@
 /*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:13:42 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 14:17:57 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:35:04 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-t_vec3	new_vec3(char **components)
-{
-	t_vec3	vec3;
-
-	vec3.x = ft_atof(components[0]);
-	vec3.y = ft_atof(components[1]);
-	vec3.z = ft_atof(components[2]);
-	return (vec3);
-}
-
-t_color	new_color(char **components)
-{
-	t_color	color;
-
-	color.r = ft_atof(components[0]) / 255;
-	color.g = ft_atof(components[1]) / 255;
-	color.b = ft_atof(components[2]) / 255;
-	color.a = 0;
-	return (color);
-}
 
 void	add_sphere(t_objects *object, char **components)
 {
@@ -79,4 +58,26 @@ void	add_cylinder(t_objects *object, char **components)
 	while (object->cylinder[i])
 		i++;
 	object->cylinder[i] = new_cylinder(components);
+}
+
+t_sphere	*new_sphere(char **components)
+{
+	t_sphere	*sphere;
+	char		**split;
+
+	sphere = malloc(sizeof(t_sphere));
+	if (!sphere)
+		return (NULL);
+	split = ft_split(components[1], ',');
+	if (!split)
+		return (free(sphere), NULL);
+	sphere->pos = new_vec3(split);
+	ft_free_split(split);
+	sphere->radius = ft_atof(components[2]) / 2;
+	split = ft_split(components[3], ',');
+	if (!split)
+		return (free(sphere), NULL);
+	sphere->color = new_color(split);
+	ft_free_split(split);
+	return (sphere);
 }

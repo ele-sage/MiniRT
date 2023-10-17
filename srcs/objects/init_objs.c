@@ -6,7 +6,7 @@
 /*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 14:20:57 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:31:31 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static t_objects	*init_object(t_parse *parse)
 
 static bool	check_objects(t_objects *object)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!object->sphere || !object->plane || !object->cylinder)

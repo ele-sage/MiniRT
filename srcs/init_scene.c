@@ -6,7 +6,7 @@
 /*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 06:16:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 14:16:46 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/17 18:06:29 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ t_scene	*init_scene(int argc, char **argv)
 	if (!init_mlx(scene))
 		return (free(scene), free_objects(object));
 	scene->objs = object;
+	scene->selected = NULL;
 	return (scene);
 }
