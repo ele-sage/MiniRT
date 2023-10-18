@@ -6,7 +6,7 @@
 /*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 07:21:13 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/17 18:14:15 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/17 20:20:16 by egervais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,16 @@ void	check_max(t_color *color)
 }
 
 void	adjust_color(t_color *color, t_hit_info *hit_info,
-			t_objects *objs, double dot)
+			t_objects *objs, double l)
 {
-	if (dot >= 0)
+	if (l >= 0)
 	{
-		color->r = hit_info->color.r * (objs->light->color.r
-				* dot * objs->light->ratio + objs->amblight->color.r
-				* objs->amblight->ratio);
-		color->g = hit_info->color.g * (objs->light->color.g
-				* dot * objs->light->ratio + objs->amblight->color.g
-				* objs->amblight->ratio);
-		color->b = hit_info->color.b * (objs->light->color.b
-				* dot * objs->light->ratio + objs->amblight->color.b
-				* objs->amblight->ratio);
+		color->r = hit_info->color.r * (l * objs->light->color.r
+				+ objs->amblight->color.r * objs->amblight->ratio);
+		color->g = hit_info->color.g * (l * objs->light->color.g
+				+ objs->amblight->color.g * objs->amblight->ratio);
+		color->b = hit_info->color.b * (l * objs->light->color.b
+				+ objs->amblight->color.b * objs->amblight->ratio);
 	}
 	else
 	{
@@ -61,7 +58,6 @@ void	adjust_color(t_color *color, t_hit_info *hit_info,
 		color->b = hit_info->color.b * objs->amblight->color.b
 			* objs->amblight->ratio;
 	}
-	check_max(color);
 }
 
 void	add_light(t_objects *objs, t_hit_info *hit_info,
@@ -70,6 +66,7 @@ void	add_light(t_objects *objs, t_hit_info *hit_info,
 	t_ray		light_ray;
 	t_hit_info	hits;
 	double		dot;
+	double		at;
 
 	hits.dist = INFINITY;
 	hits.collided = false;
@@ -78,11 +75,15 @@ void	add_light(t_objects *objs, t_hit_info *hit_info,
 	light_ray.dir = vec3_norm(vec3_sub(objs->light->pos, hit_info->hit.pos));
 	hit(objs, light_ray, &hits);
 	dot = vec3_dot(hit_info->hit.dir, light_ray.dir);
+	at = 1 / pow(vec3_dist(hit_info->hit.pos, objs->light->pos), 0.1);
 	if (dot < 0)
 		dot = 0;
 	if (hits.collided)
 		dot = -1;
+	else
+		dot *= objs->light->ratio * at;
 	adjust_color(color, hit_info, objs, dot);
+	check_max(color);
 }
 
 // Calculate the color of a single pixel
