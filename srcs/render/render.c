@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 07:21:13 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/19 13:37:11 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:19:56 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ void	add_light(t_objects *objs, t_hit_info *hit_info, t_color *color)
 	hit(objs, light_ray, &hits);
 	dot = vec3_dot(hit_info->hit.dir, light_ray.dir);
 	if (hits.collided && hits.dist < vec3_dist(hit_info->hit.pos,
-				objs->light->pos))
+			objs->light->pos))
 		dot = -1;
 	else
-	{	
+	{
 		at = 1 / pow(vec3_dist(hit_info->hit.pos, objs->light->pos), 0.1);
 		dot *= objs->light->ratio * at;
 	}

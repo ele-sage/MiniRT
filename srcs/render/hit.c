@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/19 11:29:11 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:19:38 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	hit_plane(t_plane *plane, t_ray ray, t_hit_info *hit_info)
 	}
 }
 
-void	hit_light(t_light *light, t_ray ray, t_hit_info *hit_info, t_color *color)
+void	hit_light(t_light *light, t_ray ray, t_hit_info *hit_info,
+		t_color *color)
 {
 	t_sphere	sphere;
 

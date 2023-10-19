@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:17:10 by egervais          #+#    #+#             */
-/*   Updated: 2023/10/17 19:06:06 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:30:39 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,17 +86,17 @@ void	mod_cylinder(t_cylinder *cylinder, t_mod act)
 void	mod_light(t_light *light, t_mod act, bool l, t_amblight *al)
 {
 	if (act == RIGHT && l != 0)
-		light->pos.x += 0.1;
+		light->pos.x += 0.11;
 	else if (act == LEFT && l != 0)
-		light->pos.x -= 0.1;
+		light->pos.x -= 0.11;
 	else if (act == FRONT && l != 0)
-		light->pos.z += 0.1;
+		light->pos.z += 0.11;
 	else if (act == UP && l != 0)
-		light->pos.y += 0.1;
+		light->pos.y += 0.11;
 	else if (act == DOWN && l != 0)
-		light->pos.y -= 0.1;
+		light->pos.y -= 0.11;
 	else if (act == BACK && l != 0)
-		light->pos.z -= 0.1;
+		light->pos.z -= 0.11;
 	else if (act == ADD && l != 0 && light->ratio + 0.1 <= 1)
 		light->ratio += 0.1;
 	else if (act == SUB && l != 0 && light->ratio - 0.1 >= 0)

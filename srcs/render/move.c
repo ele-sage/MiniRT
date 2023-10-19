@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:54:32 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/19 14:11:11 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:29:36 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	move3(keys_t key, t_camera *camera)
 		rotate_camera(camera, 0.1);
 	else if (key == MLX_KEY_LEFT)
 		rotate_camera(camera, -0.1);
-	else if (key == MLX_KEY_UP)
-		camera->pos = vec3_add(camera->pos, vec3_mul(camera->up, 1));
 	else if (key == MLX_KEY_DOWN)
+		camera->pos = vec3_add(camera->pos, vec3_mul(camera->up, 1));
+	else if (key == MLX_KEY_UP)
 		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->up, 1));
 	else if (key == MLX_KEY_S)
 		camera->pos = vec3_sub(camera->pos, vec3_mul(camera->dir, 1));

@@ -6,13 +6,12 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:17:10 by egervais          #+#    #+#             */
-/*   Updated: 2023/10/19 14:16:02 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:19:13 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-// Define a function to rotate a vector around the Y-axis
 t_vec3	rotate_y(t_vec3 vec, double angle)
 {
 	double	cos_a;
@@ -27,7 +26,6 @@ t_vec3	rotate_y(t_vec3 vec, double angle)
 	return (result);
 }
 
-// Define a function to rotate the camera
 void	rotate_camera(t_camera *camera, double angle)
 {
 	camera->dir = rotate_y(camera->dir, angle);
@@ -82,7 +80,6 @@ void	select_objs(mouse_key_t button, action_t action,
 		get_objs(scene, &hit_info, pos);
 		if (hit_info.collided)
 			scene->selected = (void *)hit_info.obj_hit;
-			
 	}
 	else if (button == MLX_MOUSE_BUTTON_RIGHT && action == 0)
 		scene->selected = NULL;

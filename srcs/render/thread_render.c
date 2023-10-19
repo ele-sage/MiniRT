@@ -6,32 +6,11 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:52:46 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/19 14:11:43 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/19 15:22:22 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-static char	*which_object(t_scene *scene)
-{
-	if (scene->selected == (void *)scene->objs->sphere)
-		return ("Sphere");
-	if (scene->selected == (void *)scene->objs->plane)
-		return ("Plane");
-	if (scene->selected == (void *)scene->objs->cylinder)
-		return ("Cylinder");
-	return ("None");
-}
-
-void	display_controls(t_scene *scene)
-{
-	mlx_put_string(scene->mlx, "Controls:", 10, 10);
-	mlx_put_string(scene->mlx, "WASD: Move camera", 10, 30);
-	mlx_put_string(scene->mlx, "up/down arrows: Move camera up/down", 10, 50);
-	mlx_put_string(scene->mlx, "left/right arrows: Rotate camera", 10, 70);
-	mlx_put_string(scene->mlx, "Selected object: ", 10, 170);
-	mlx_put_string(scene->mlx, which_object(scene), 10, 190);
-}
 
 static void	*render_thread(void *arg)
 {
@@ -104,12 +83,10 @@ void	single_thread(t_scene *scene)
 	}
 }
 
-void render(t_scene *scene)
+void	render(t_scene *scene)
 {
 	if (THREADS == 1)
 		single_thread(scene);
 	else
 		create_thread(scene);
-	printf("Selected object: %s\n", which_object(scene));
-	display_controls(scene);
 }
