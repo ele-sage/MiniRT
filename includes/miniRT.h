@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:40:54 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/18 20:26:55 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:10:25 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ typedef struct s_scene	t_scene;
 
 # define WIDTH 1920
 # define HEIGHT 1080
+#ifndef THREADS
 # define THREADS 12
+#endif
 
 struct s_scene
 {
@@ -52,7 +54,10 @@ typedef struct s_thread
 
 t_scene	*init_scene(int argc, char **argv);
 void	move(mlx_key_data_t key_data, void *param);
+void	display_controls(t_scene *scene);
 void	reseize(int32_t width, int32_t height, void *param);
 void	create_thread(t_scene *scene);
+void	single_thread(t_scene *scene);
+void 	render(t_scene *scene);
 
 #endif

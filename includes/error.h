@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:49:33 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/18 19:12:19 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/19 12:04:16 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ Example :\n\
 
 bool	ft_error(char *str, char *obj);
 void	*ft_error_free(t_parse *ptr, char *str);
-double	pseudo_rand(void);
 
 #endif

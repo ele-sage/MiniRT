@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 10:54:32 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/17 18:38:29 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:11:11 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	move3(keys_t key, t_camera *camera)
 {
-	if (key == MLX_KEY_LEFT)
+	if (key == MLX_KEY_RIGHT)
 		rotate_camera(camera, 0.1);
-	else if (key == MLX_KEY_RIGHT)
+	else if (key == MLX_KEY_LEFT)
 		rotate_camera(camera, -0.1);
 	else if (key == MLX_KEY_UP)
 		camera->pos = vec3_add(camera->pos, vec3_mul(camera->up, 1));
@@ -79,7 +79,7 @@ void	move(mlx_key_data_t key_data, void *param)
 		if (move2(key_data.key, camera, scene))
 			changed = false;
 	if (changed)
-		create_thread(scene);
+		render(scene);
 }
 
 void	reseize(int32_t width, int32_t height, void *param)
@@ -94,5 +94,5 @@ void	reseize(int32_t width, int32_t height, void *param)
 	scene->mlx->width = width;
 	scene->mlx->height = height;
 	mlx_resize_image(scene->img, width, height);
-	create_thread(scene);
+	render(scene);
 }

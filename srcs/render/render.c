@@ -6,13 +6,12 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 07:21:13 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/18 20:42:13 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/19 13:37:11 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "miniRT.h"
 
-// Calculate the ray for a single pixel
 t_ray	get_ray(t_camera *camera, int u, int v, mlx_t *mlx)
 {
 	t_ray	ray;
@@ -60,8 +59,7 @@ void	adjust_color(t_color *color, t_hit_info *hit_info,
 	}
 }
 
-void	add_light(t_objects *objs, t_hit_info *hit_info,
-				t_color *color)
+void	add_light(t_objects *objs, t_hit_info *hit_info, t_color *color)
 {
 	t_ray		light_ray;
 	t_hit_info	hits;
@@ -71,22 +69,23 @@ void	add_light(t_objects *objs, t_hit_info *hit_info,
 	hits.dist = INFINITY;
 	hits.collided = false;
 	hits.obj_hit = hit_info->obj_hit;
-	light_ray.pos = hit_info->hit.pos;
+	light_ray.pos = vec3_add(hit_info->hit.pos,
+			vec3_mul(hit_info->hit.dir, 0.0001));
 	light_ray.dir = vec3_norm(vec3_sub(objs->light->pos, hit_info->hit.pos));
 	hit(objs, light_ray, &hits);
 	dot = vec3_dot(hit_info->hit.dir, light_ray.dir);
-	at = 1 / pow(vec3_dist(hit_info->hit.pos, objs->light->pos), 0.1);
-	if (dot < 0)
-		dot = 0;
-	if (hits.collided)
+	if (hits.collided && hits.dist < vec3_dist(hit_info->hit.pos,
+				objs->light->pos))
 		dot = -1;
 	else
+	{	
+		at = 1 / pow(vec3_dist(hit_info->hit.pos, objs->light->pos), 0.1);
 		dot *= objs->light->ratio * at;
+	}
 	adjust_color(color, hit_info, objs, dot);
 	check_max(color);
 }
 
-// Calculate the color of a single pixel
 void	draw_pixel(t_scene *scene, int u, int v, t_color *color)
 {
 	t_ray		ray;

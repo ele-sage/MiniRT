@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/18 20:44:51 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/19 11:29:11 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,22 +102,19 @@ void	hit(t_objects *objects, t_ray ray, t_hit_info *hit_info)
 	i = 0;
 	while (i < objects->nb_sphere)
 	{
-		if ((t_sphere *)hit_info->obj_hit != objects->sphere[i])
-			hit_sphere(objects->sphere[i], ray, hit_info);
+		hit_sphere(objects->sphere[i], ray, hit_info);
 		i++;
 	}
 	i = 0;
 	while (i < objects->nb_plane)
 	{
-		if ((t_plane *)hit_info->obj_hit != objects->plane[i])
-			hit_plane(objects->plane[i], ray, hit_info);
+		hit_plane(objects->plane[i], ray, hit_info);
 		i++;
 	}
 	i = 0;
 	while (i < objects->nb_cylinder)
 	{
-		if ((t_cylinder *)hit_info->obj_hit != objects->cylinder[i])
-			hit_cylinder(objects->cylinder[i], ray, hit_info);
+		hit_cylinder(objects->cylinder[i], ray, hit_info);
 		i++;
 	}
 }

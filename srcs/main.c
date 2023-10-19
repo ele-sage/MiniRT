@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:40:31 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/17 18:20:02 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:11:19 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 	if (!scene)
 		return (1);
 	mlx_image_to_window(scene->mlx, scene->img, 0, 0);
-	create_thread(scene);
+	render(scene);
 	mlx_resize_hook(scene->mlx, reseize, scene);
 	mlx_key_hook(scene->mlx, move, scene);
 	mlx_mouse_hook(scene->mlx, select_objs, scene);

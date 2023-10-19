@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 18:17:10 by egervais          #+#    #+#             */
-/*   Updated: 2023/10/17 18:37:06 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/19 14:16:02 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ void	select_objs(mouse_key_t button, action_t action,
 	{
 		get_objs(scene, &hit_info, pos);
 		if (hit_info.collided)
-			scene->selected = hit_info.obj_hit;
+			scene->selected = (void *)hit_info.obj_hit;
+			
 	}
 	else if (button == MLX_MOUSE_BUTTON_RIGHT && action == 0)
 		scene->selected = NULL;
+	render(scene);
 }
