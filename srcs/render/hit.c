@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 08:01:30 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/18 20:15:14 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:44:51 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ void	set_values(t_hit_info *hit_info, double t,
 	hit_info->color = cylinder->color;
 	hit_info->obj_hit = (void *)cylinder;
 	hit_info->type = 0;
-}
-
-void	randomize_hit_dir(t_hit_info *hit_info)
-{
-	t_vec3	random;
-	t_vec3	normal;
-
-	random = _vec3(rand() % 100, rand() % 100, rand() % 100);
-	normal = vec3_norm(vec3_cross(random, hit_info->hit.dir));
-	hit_info->hit.dir = vec3_norm(vec3_cross(normal, hit_info->hit.dir));
 }
 
 void	hit_sphere(t_sphere *sphere, t_ray ray, t_hit_info *hit_info)
@@ -85,6 +75,23 @@ void	hit_plane(t_plane *plane, t_ray ray, t_hit_info *hit_info)
 		hit_info->color = plane->color;
 		hit_info->obj_hit = (void *)plane;
 		hit_info->type = 1;
+	}
+}
+
+void	hit_light(t_light *light, t_ray ray, t_hit_info *hit_info, t_color *color)
+{
+	t_sphere	sphere;
+
+	hit_info->collided = false;
+	sphere.pos = light->pos;
+	sphere.radius = 0.1;
+	sphere.color = light->color;
+	hit_sphere(&sphere, ray, hit_info);
+	if (hit_info->collided)
+	{
+		color->r = 1;
+		color->g = 1;
+		color->b = 1;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:40:54 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/17 18:52:31 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:26:55 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_scene	t_scene;
 
 # define WIDTH 1920
 # define HEIGHT 1080
-# define THREADS 10
+# define THREADS 12
 
 struct s_scene
 {

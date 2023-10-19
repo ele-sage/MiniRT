@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 07:21:13 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/18 20:13:41 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/18 20:42:13 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,5 @@ void	draw_pixel(t_scene *scene, int u, int v, t_color *color)
 	hit(scene->objs, ray, &hit_info);
 	if (hit_info.collided)
 		add_light(scene->objs, &hit_info, color);
+	hit_light(scene->objs->light, ray, &hit_info, color);
 }
