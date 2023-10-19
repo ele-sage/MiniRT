@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_objs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 10:13:42 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/17 18:35:04 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:26:32 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	add_disk(t_cylinder *cylinder)
 	origin = vec3_sub(cylinder->pos,
 			vec3_mul(cylinder->dir, cylinder->height / 2));
 	cylinder->disk[1].pos = origin;
-	cylinder->disk[1].dir = cylinder->dir;
+	cylinder->disk[1].dir = vec3_mul(cylinder->dir, -1);
 	cylinder->disk[1].radius = cylinder->radius;
 	cylinder->disk[1].color = cylinder->color;
 }

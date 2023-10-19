@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:02:04 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/07/21 16:48:31 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/18 18:47:50 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(const char *s, char c);
+char	**ft_split_set(const char *s, const char *set);
 char	*ft_str_replace(char *str, char *old, char *new, size_t len);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s1);
@@ -31,6 +32,7 @@ char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strtrim(const char *s1, const char *set);
 
 int		ft_int_strchr(const char *s, int c);
+int		ft_int_strchr_set(const char *s, const char *set);
 int		ft_int_strrchr(const char *s, int c);
 char	*ft_strstr(const char *haystack, const char *needle);
 char	*ft_strnjoin(const char *s1, const char *s2, ssize_t index);

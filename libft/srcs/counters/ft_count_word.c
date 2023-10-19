@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 10:05:45 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/09/01 18:52:23 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:14:46 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,30 @@ size_t	ft_count_word_array(const char **args, const char c)
 	while (args[a])
 	{
 		count += ft_count_word(args[a], c);
+		a++;
+	}
+	return (count);
+}
+
+size_t	ft_count_word_set(const char *str, const char *set)
+{
+	size_t	a;
+	size_t	count;
+
+	a = 0;
+	count = 0;
+	while (str[a])
+	{
+		if (a == 0)
+		{
+			if (!ft_strchr(set, str[a]))
+				count++;
+		}
+		else
+		{
+			if (ft_strchr(set, str[a - 1]) && !ft_strchr(set, str[a]))
+				count++;
+		}
 		a++;
 	}
 	return (count);

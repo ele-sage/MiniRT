@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_objs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 01:33:00 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/17 18:31:31 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:04:09 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	fill_objects(t_parse *parse, t_objects *object)
 	i = 0;
 	while (i < parse->nb_line)
 	{
-		components = ft_split(parse->lines[i], ' ');
+		components = ft_split_set(parse->lines[i], " \t");
 		if (!components)
 			return (false);
 		if (ft_strncmp(parse->lines[i], "sp ", 3) == 0)

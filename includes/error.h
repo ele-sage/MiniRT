@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:49:33 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/17 18:53:57 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:12:19 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include "miniRT.h"
 
-# define ERR_CY "Cylinder\n"
-# define ERR_SP "Sphere\n"
-# define ERR_PL "Plane\n"
-# define ERR_AM "Ambient light\n"
-# define ERR_CA "Camera\n"
-# define ERR_LI "Light\n"
+# define ERR_CY "Cylinder"
+# define ERR_SP "Sphere"
+# define ERR_PL "Plane"
+# define ERR_AM "Ambient light"
+# define ERR_CA "Camera"
+# define ERR_LI "Light"
 # define ERR_COLOR "Need a color. Format : \
 	R,G,B (each value must be an integer between 0 and 255)\n"
 # define ERR_VEC3 "Need a vector. Format : X,Y,Z (each value must be a float)\n"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_components.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: egervais <egervais@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 00:43:46 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 14:25:13 by egervais         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:07:17 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	check_color(char *color)
 	int		i;
 
 	rgb = ft_split(color, ',');
-	if (ft_splitlen(rgb) != 3)
+	if (ft_count_specific_char(color, ',') != 2)
 		return (ft_free_split(rgb), false);
 	i = 0;
 	while (rgb[i])
@@ -51,7 +51,7 @@ bool	check_coordinates(char *elem)
 	int		i;
 
 	coord = ft_split(elem, ',');
-	if (ft_splitlen(coord) != 3)
+	if (ft_count_specific_char(elem, ',') != 2)
 	{
 		ft_free_split(coord);
 		return (false);
@@ -75,7 +75,7 @@ bool	check_normal(char *elem, int lenght)
 	int		i;
 
 	coord = ft_split(elem, ',');
-	if (ft_splitlen(coord) != 3)
+	if (ft_count_specific_char(elem, ',') != 2)
 	{
 		ft_free_split(coord);
 		return (false);

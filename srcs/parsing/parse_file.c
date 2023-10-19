@@ -6,7 +6,7 @@
 /*   By: ele-sage <ele-sage@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 22:13:04 by ele-sage          #+#    #+#             */
-/*   Updated: 2023/10/16 08:44:48 by ele-sage         ###   ########.fr       */
+/*   Updated: 2023/10/18 19:03:54 by ele-sage         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,11 @@ static void	check_objs(t_parse *parse, char **elem)
 	}
 }
 
-// Should also check for /t
 static bool	check_line(t_parse *parse)
 {
 	char		**elem;
 
-	elem = ft_split(parse->line, ' ');
+	elem = ft_split_set(parse->line, " \t");
 	if (!elem)
 		return (false);
 	if (ft_splitlen(elem) > 2)
